@@ -80,6 +80,18 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
             this.sellButton.setInteractive();
             this.sellButton.setAlpha(1);
         });
+
+        EventCenter.on(Events.HOME_COLLIDE_FINISH, () => {
+            this.storeButton.disableInteractive();
+            this.storeButton.setAlpha(0.7);
+        });
+        EventCenter.on(Events.HOME_COLLIDE_START, () => {
+            if(this.storeButton.scene == undefined)
+                return;
+
+            this.storeButton.setInteractive();
+            this.storeButton.setAlpha(1);
+        });
     }
 
     initButtons() {
@@ -110,10 +122,13 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         this.sellButton.onClick(this.sellItem.bind(this));
         this.content.add(this.sellButton);
 
-        let deleteButton = new TextButton(this.scene, this.sellButton.x + this.sellButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Delete, buttonFont, null, true).setOrigin(0, 1);
+        this.storeButton = new TextButton(this.scene, this.sellButton.x + this.sellButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Store, buttonFont, null, true).setOrigin(0, 1);
+        this.storeButton.onClick(this.storeItem.bind(this));
+        this.content.add(this.storeButton);
+
+        let deleteButton = new TextButton(this.scene, this.storeButton.x + this.storeButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Delete, buttonFont, null, true).setOrigin(0, 1);
         deleteButton.onClick(this.deleteItem.bind(this));
         this.content.add(deleteButton);
-
 
         let backButton = new TextButton(this.scene, deleteButton.x + deleteButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Back, buttonFont, null, true).setOrigin(0, 1);
         this.content.add(backButton);
@@ -133,6 +148,10 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         this.updateText();
         EventCenter.emit(Events.UPDATE_SCORE, this.player.getScore() + this.item.getSaleCost());
         this.checkAmount();
+    }
+
+    storeItem() {
+        
     }
 
     useItem() {

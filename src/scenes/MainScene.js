@@ -1,15 +1,11 @@
-import Scenes from '/src/constants/Scenes.js';
 import Misc from '/src/constants/Misc.js';
 import Resources from '/src/constants/Resources.js';
-import LocalStorageManager from '/src/utils/LocalStorageManager.js';
 import EventCenter from '/src/constants/EventCenter.js';
 import Events from '/src/constants/Events.js';
 import Player from '/src/gameObjects/entity/Player.js';
-import Coin from '/src/gameObjects/Coin.js';
 import WaveManager from '/src/wavesSystem/WaveManager.js';
 import Waves from '/src/wavesSystem/Waves.js';
 import Anims from '/src/constants/Anims.js';
-import WizzardDialogFrame from '/src/dialogFrames/WizzardDialogFrame.js';
 import ItemsFactory from '/src/inventorySystem/items/ItemsFactory.js';
 import Weapons from "/src/inventorySystem/items/equipment/weapon/Weapons.js";
 
@@ -46,7 +42,6 @@ class MainScene extends Phaser.Scene{
         const groundTileset = groundMap.addTilesetImage("ground",Resources.Sprites.Materials.OakWoods.OakWoodsGround);
         this.groundLayer = groundMap.createLayer("ground", groundTileset, 0, 0);
         this.groundLayer.setCollisionByExclusion(-1, true);
-        
         
         this.home = this.physics.add.sprite(this.sceneWidth /2,this.groundLevel,Resources.Sprites.Materials.OakWoods.OakCoinTree).setOrigin(0.5,1);
         
@@ -137,53 +132,30 @@ class MainScene extends Phaser.Scene{
     }
     
     update(){
-        if(this.shopCollide){
+        if(this.physics.overlap(this.player, this.shop)){
             EventCenter.emit(Events.SHOP_COLLIDE_START);
         }else{
             EventCenter.emit(Events.SHOP_COLLIDE_FINISH);
         }
-        this.shopCollide = false;
-        
-        if(this.homeCollide){
+
+        if(this.physics.overlap(this.player,this.home)){
             EventCenter.emit(Events.HOME_COLLIDE_START);
         }else{
             EventCenter.emit(Events.HOME_COLLIDE_FINISH);
         }
-        this.homeCollide = false;
-        
-        //TODO
-        if(this.wizzardCollide) {
+
+        if(this.physics.overlap(this.player,this.wizzard)) {
             if(!this.waveManager.getWave().isStarted){
                 this.wizzard.setInteractive();
-                
-                this.wizzard.dialog.tween = this.tweens.add({
-                    targets:this.wizzard.dialog,
-                    alpha:1,
-                    duration:200,
-                    yoyo:false,
-                    repeat:0,
-                });
+                this.wizzard.dialog.setAlpha(1);
             }else{
-                this.wizzard.dialog.tween = this.tweens.add({
-                targets:this.wizzard.dialog,
-                alpha:0,
-                duration:200,
-                yoyo:false,
-                repeat:0,
-                });
+                this.wizzard.dialog.setAlpha(0);
                 this.wizzard.disableInteractive();
             }
         }else{
-            this.wizzard.dialog.tween = this.tweens.add({
-                targets:this.wizzard.dialog,
-                alpha:0,
-                duration:200,
-                yoyo:false,
-                repeat:0,
-            });
+            this.wizzard.dialog.setAlpha(0);
             this.wizzard.disableInteractive();
         }
-        this.wizzardCollide = false;
     }
     
    initColliders(){
@@ -191,16 +163,6 @@ class MainScene extends Phaser.Scene{
         this.physics.add.collider(this.portal, this.groundLayer);
         this.physics.add.collider(this.wizzard, this.groundLayer);
         this.physics.add.collider(this.home, this.groundLayer);
-        
-        this.physics.add.overlap(this.player, this.shop, ()=>{
-            this.shopCollide = true;
-        });
-        this.physics.add.overlap(this.player, this.wizzard, ()=>{
-            this.wizzardCollide = true;
-        });
-        this.physics.add.overlap(this.player, this.home, ()=>{
-            this.homeCollide = true;
-        });
     }
     
     initEvents() {
