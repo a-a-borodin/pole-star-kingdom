@@ -126,6 +126,7 @@ class MainScene extends Phaser.Scene{
         
         let item = Weapons.SweetySword;
         this.player.getInventory().push(ItemsFactory.create(item,this.player.getInventory().hasSlotFor(item),this.player));
+        this.player.getInventory().push(ItemsFactory.create(item,this.player.getInventory().hasSlotFor(item),this.player));
 	      
         this.player.setGround(this.groundLayer);
         this.cameras.main.startFollow(this.player);

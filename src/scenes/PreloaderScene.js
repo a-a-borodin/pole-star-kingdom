@@ -34,8 +34,8 @@ class PreloaderScene extends Phaser.Scene {
         
         this.load.tilemapTiledJSON(Resources.Json.Maps.MainGroundMap, 'assets/json/maps/mainGroundMap.json');
         
-	    this.load.spritesheet(Resources.Sprites.Backgrounds.Menu.Parallax.GrassMountain, 'assets/sprites/backgrounds/menu/parallax/BackgroundGrassMountainParallax.png',{frameWidth:576,frameHeight:324});
-        this.load.spritesheet(Resources.Sprites.Backgrounds.Menu.Parallax.SnowMountain,'assets/sprites/backgrounds/menu/parallax/backgroundSnowMountainParallax.png',{frameWidth:576,frameHeight:324});
+	    this.load.spritesheet(Resources.Sprites.Backgrounds.Menu.Parallax.GrassMountain, 'assets/sprites/backgrounds/menu/parallax/BackgroundGrassMountainParallax.png',{frameWidth:960,frameHeight:540});
+        this.load.spritesheet(Resources.Sprites.Backgrounds.Menu.Parallax.SnowMountain,'assets/sprites/backgrounds/menu/parallax/backgroundSnowMountainParallax.png',{frameWidth:960,frameHeight:540});
 	    this.load.spritesheet(Resources.Sprites.Backgrounds.Game.Parallax.OakWoods,'assets/sprites/backgrounds/game/parallax/backgroundOakWoodsParallax.png',{frameWidth:960,frameHeight:540});
 	    
 	    this.load.spritesheet(Resources.Sprites.Items.CoinGold,'assets/sprites/items/coinGold.png',{frameWidth:16,frameHeight:16});

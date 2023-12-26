@@ -17,7 +17,6 @@ class MainMenuScene extends Phaser.Scene{
 		this.sceneHeight = this.cameras.main.height;			
 		this.cameras.main.flash(Misc.FLASH_DURATION);
 		this.textManager = new TextManager(this);
-		
 		this.parallaxBackgroundManager = new ParallaxBackgroundManager(this);
     }
     
@@ -31,21 +30,15 @@ class MainMenuScene extends Phaser.Scene{
     
         let backgroundEmpty = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,0).setOrigin(0);
         this.parallaxBackgroundManager.addLayer(backgroundEmpty,0);
-	    backgroundEmpty.setScale(1.7);
 	    let backgroundFirst = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,1).setOrigin(0);
-	    backgroundFirst.setScale(1.7);
 	    this.parallaxBackgroundManager.addLayer(backgroundFirst,0.15);
 	    let backgroundSecond = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,2).setOrigin(0);
-	    backgroundSecond.setScale(1.7);
         this.parallaxBackgroundManager.addLayer(backgroundSecond,0.3);
         let backgroundThird = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,3).setOrigin(0);
-        backgroundThird.setScale(1.7);
         this.parallaxBackgroundManager.addLayer(backgroundThird,0.45);
 		let backgroundFour = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,4).setOrigin(0);
-		backgroundFour.setScale(1.7);
         this.parallaxBackgroundManager.addLayer(backgroundFour,0.6);
 		let backgroundFive = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,5).setOrigin(0);
-		backgroundFive.setScale(1.7);
         this.parallaxBackgroundManager.addLayer(backgroundFive,7.5);
 		
 		this.parallaxBackgroundManager.startMove(1);

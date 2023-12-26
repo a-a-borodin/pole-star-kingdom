@@ -30,7 +30,7 @@ class TextManager {
                     fontSize:"30px",
                     color:Colors.WHITE,
                     fontFamily:"PixelFont",
-                    resolutions:0,
+                    resolution:10,
                 };
             break;
             case TextManager.STROKE:
@@ -40,7 +40,7 @@ class TextManager {
                     fontFamily:"PixelFont",
                     stroke:Colors.DARK,
                     strokeThickness:7,
-                    resolutions:0,
+                    resolution:10,
                     //wordWrap: { width: 100, useAdvancedWrap: true }
                 };
             break;

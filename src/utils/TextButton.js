@@ -34,10 +34,9 @@ class TextButton extends Phaser.GameObjects.Text {
         });
         
         this.on('pointerup', ()=> {
+            this.setColor(this.getBaseColor());
             if(this.onClickFn != undefined)
                 this.onClickFn();
-                
-            this.setColor(this.getBaseColor());
 	    });
 	    
 	    this.on('pointerout', ()=> {

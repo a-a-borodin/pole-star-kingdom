@@ -46,8 +46,10 @@ let config = {
 	parent:PARENT,
 	width:TARGET_WIDTH,
 	height:TARGET_HEIGHT,
-	roundPixels:true,
-	pixelArt:true,
+	pixelArt:false,
+	antialias: false,
+	autoRound: false,
+	roundPixels: false,
 	scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH,
 	    mode: Phaser.Scale.FIT,

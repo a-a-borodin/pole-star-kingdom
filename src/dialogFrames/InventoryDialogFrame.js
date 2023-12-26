@@ -73,6 +73,13 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
             this.sellButton.disableInteractive();
             this.sellButton.setAlpha(0.7);
         });
+        EventCenter.on(Events.SHOP_COLLIDE_START, () => {
+            if(this.sellButton.scene == undefined)
+                return;
+
+            this.sellButton.setInteractive();
+            this.sellButton.setAlpha(1);
+        });
     }
 
     initButtons() {
@@ -100,20 +107,19 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         this.content.add(actionButton);
 
         this.sellButton = new TextButton(this.scene, actionButton.x + actionButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Sell, buttonFont, null, true).setOrigin(0, 1);
-        this.sellButton.onClick(this.sellItem);
+        this.sellButton.onClick(this.sellItem.bind(this));
         this.content.add(this.sellButton);
 
-
         let deleteButton = new TextButton(this.scene, this.sellButton.x + this.sellButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Delete, buttonFont, null, true).setOrigin(0, 1);
-        deleteButton.onClick(this.deleteItem);
+        deleteButton.onClick(this.deleteItem.bind(this));
         this.content.add(deleteButton);
 
 
         let backButton = new TextButton(this.scene, deleteButton.x + deleteButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Back, buttonFont, null, true).setOrigin(0, 1);
+        this.content.add(backButton);
         backButton.onClick(() => {
             this.destroy();
         });
-        this.content.add(backButton);
     }
 
     deleteItem() {
@@ -145,7 +151,7 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
             }
             return;
         }
-        
+
         let selectedCell;
         switch (this.item.type) {
             case ItemTypes.Weapon:
@@ -175,31 +181,32 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
             case ItemTypes.Cloak:
                 selectedCell = this.player.getEquipment().getCloakCell();
                 break;
+            
+            case ItemTypes.Ring:
+                if (this.player.getEquipment().getFirstRingCell().getItem() == undefined) {
+                    selectedCell = this.player.getEquipment().getFirstRingCell();
+                } else if (this.player.getEquipment().getSecondRingCell().getItem() == undefined) {
+                    selectedCell = this.player.getEquipment().getSecondRingCell();
+                } else {
+                    return;
+                }
+            break
         }
-
-        if (this.item.type == ItemTypes.Ring) {
-            if (this.player.getEquipment().getFirstRingCell().getItem() == undefined) {
-                selectedCell = this.player.getEquipment().getFirstRingCell();
-            } else if (this.player.getEquipment().getSecondRingCell().getItem() == undefined) {
-                selectedCell = this.player.getEquipment().getSecondRingCell();
-            } else {
-                return;
-            }
-        }
-
+        
         let itemInSlot = selectedCell.getItem();
-
+        
         if (itemInSlot != undefined) {
             if (this.player.getInventory().hasSlotFor(itemInSlot)) {
                 itemInSlot.isEquiped = false;
                 this.player.getInventory().push(itemInSlot);
-            } else {
+                selectedCell.clear();
+            } else
                 return;
-            }
         }
-        this.cell.clear();
+        
         this.item.isEquiped = true;
         selectedCell.setItem(this.item);
+        this.cell.clear();
         this.destroy();
     }
 
