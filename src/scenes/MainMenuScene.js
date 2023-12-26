@@ -28,7 +28,7 @@ class MainMenuScene extends Phaser.Scene{
         
 	    let bgType = this.randomBackground();
     
-        let backgroundEmpty = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,0).setOrigin(0);
+        /*let backgroundEmpty = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,0).setOrigin(0);
         this.parallaxBackgroundManager.addLayer(backgroundEmpty,0);
 	    let backgroundFirst = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,1).setOrigin(0);
 	    this.parallaxBackgroundManager.addLayer(backgroundFirst,0.15);
@@ -42,7 +42,7 @@ class MainMenuScene extends Phaser.Scene{
         this.parallaxBackgroundManager.addLayer(backgroundFive,7.5);
 		
 		this.parallaxBackgroundManager.startMove(1);
-		
+		*/
 		this.logo = this.add.sprite(this.sceneWidth/2, this.sceneHeight/4, Resources.Sprites.UI.Logo);
         this.logo.setAngle(-2);
         this.tweens.add({
