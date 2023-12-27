@@ -12,6 +12,7 @@ const Rings = {
         type:ItemTypes.Ring,
         isEquipable:true,
         isEquiped:false,
+        isStoraged:false,
         cost:800,
         saleCost:450,
         rarity:ItemsRarity.Rare,

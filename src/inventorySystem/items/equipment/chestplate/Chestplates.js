@@ -12,6 +12,7 @@ const Chestplates = {
         type:ItemTypes.Chestplate,
         isEquipable:true,
         isEquiped:false,
+        isStoraged:false,
         cost:400,
         saleCost:350,
         rarity:ItemsRarity.Common,

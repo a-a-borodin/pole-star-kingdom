@@ -2,7 +2,7 @@ import PreloaderScene from '/src/scenes/PreloaderScene.js';
 import MainMenuScene from '/src/scenes/MainMenuScene.js';
 import MainScene from '/src/scenes/MainScene.js';
 import UIScene from '/src/scenes/UIScene.js';
-import MenuScene from '/src/scenes/MenuScene.js';
+import MenuScene from '/src/scenes/MenuScene/MenuScene.js';
 
 import Scenes from '/src/constants/Scenes.js';
 import Strings from '/src/constants/Strings.js';

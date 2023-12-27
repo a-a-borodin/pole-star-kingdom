@@ -12,6 +12,7 @@ const Boots = {
         type:ItemTypes.Boots,
         isEquipable:true,
         isEquiped:false,
+        isStoraged:false,
         cost:300,
         saleCost:200,
         rarity:ItemsRarity.Common,

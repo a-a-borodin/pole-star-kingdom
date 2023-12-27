@@ -12,6 +12,7 @@ const Gloves = {
         type:ItemTypes.Gloves,
         isEquipable:true,
         isEquiped:false,
+        isStoraged:false,
         cost:400,
         saleCost:250,
         rarity:ItemsRarity.Common,

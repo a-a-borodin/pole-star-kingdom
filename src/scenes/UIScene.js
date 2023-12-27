@@ -21,6 +21,7 @@ class UIScene extends Phaser.Scene {
         this.scene.bringToTop(Scenes.UI);
         //this.input.setGlobalTopOnly(false)
         this.textManager = new TextManager(this);
+        this.cursors = this.input.keyboard.createCursorKeys();
     }
 
     create() {
@@ -40,7 +41,7 @@ class UIScene extends Phaser.Scene {
         this.rightZone.on("pointerout",()=>{
             EventCenter.emit(Events.STOP_MOVE);
         });*/
-       this.joystick = new Joystick(this, {
+       /*this.joystick = new Joystick(this, {
             base: this.add.sprite(0, 0, Resources.Sprites.UI.Joystick.Base),
             thumb: this.add.sprite(0, 0, Resources.Sprites.UI.Joystick.Thumb),
         });
@@ -54,7 +55,7 @@ class UIScene extends Phaser.Scene {
         });
         this.joystick.onPointerOut(()=> {
             EventCenter.emit(Events.STOP_MOVE);
-        });
+        });*/
 
         this.waveIcon = this.add.sprite(this.sceneWidth/2, 15, Resources.Sprites.UI.Icons.SkullIcon, 1).setOrigin(0.5, 0).setAlpha(0);
         this.waveIDText = this.textManager.createText(this.waveIcon.x - this.waveIcon.displayWidth/2 - 10, 15, "", TextManager.STROKE).setOrigin(1, 0.25).setAlpha(0);
@@ -72,6 +73,21 @@ class UIScene extends Phaser.Scene {
         });
         
         this.initEvents();
+    }
+
+    update() {
+        if (this.cursors.left.isDown)
+        {
+            EventCenter.emit(Events.MOVE_LEFT);
+        }
+        else if (this.cursors.right.isDown)
+        {
+            EventCenter.emit(Events.MOVE_RIGHT);
+        }
+        else
+        {
+            EventCenter.emit(Events.STOP_MOVE);
+        }
     }
 
     initEvents() {

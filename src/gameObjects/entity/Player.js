@@ -5,6 +5,7 @@ import Anims from '/src/constants/Anims.js';
 import Resources from '/src/constants/Resources.js';
 import Equipment from "/src/inventorySystem/equipment/Equipment.js";
 import Scenes from '/src/constants/Scenes.js';
+import Storage from "/src/inventorySystem/Storage.js";
 
 class Player extends Entity {
     constructor(scene, x, y, texture, frame, stats) {
@@ -14,7 +15,8 @@ class Player extends Entity {
             attack: Anims.Player.Attack,
             dead: Anims.Player.Dead,
         });
-
+        
+        this.storage = new Storage(9);
         this.initEvents();
         this.getHealthBar()
             .setForeground(scene.add.sprite(30, 0, Resources.Sprites.UI.ProgressBars.YellowSimple, 1)
@@ -37,6 +39,10 @@ class Player extends Entity {
 
     getEquipment() {
         return this.equipment;
+    }
+
+    getStorage() {
+        return this.storage;
     }
 
     initEvents() {

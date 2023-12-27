@@ -12,6 +12,7 @@ const Weapons = {
         type:ItemTypes.Weapon,
         isEquipable:true,
         isEquiped:false,
+        isStoraged:false,
         cost:350,
         saleCost:225,
         rarity:ItemsRarity.Common,
@@ -31,7 +32,8 @@ const Weapons = {
         type:ItemTypes.Weapon,
         isEquipable:true,
         isEquiped:false,
-        cost:10000,
+        isStoraged:false,
+        cost:99999999999999,
         saleCost:100000,
         rarity:ItemsRarity.Legendary,
         features:{
@@ -40,7 +42,7 @@ const Weapons = {
            // healthIncrease:9999,
             healthRegenIncrease:9999,
             speedIncrease:80,
-            attackSpeed:200,
+            attackSpeed:150,
         },
         icon:{
             texture:Resources.Sprites.Items.Icons.WeaponIcons,

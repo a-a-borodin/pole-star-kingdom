@@ -96,8 +96,8 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
 
     initButtons() {
         let buttonFont = TextManager.getStyle(TextManager.STROKE);
-        let actionText;
 
+        let actionText;
         if (this.item.isEquipable) {
             if (this.item.isEquiped) {
                 actionText = Strings.Remove;
@@ -106,6 +106,13 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
             }
         } else {
             actionText = Strings.Use;
+        }
+
+        let storeText;
+        if (this.item.isStored) {
+            storeText = Strings.Get;
+        } else {
+            storeText = Strings.Store;
         }
 
         let actionButton = new TextButton(this.scene, 0, this.height - MARGIN * 2, actionText, buttonFont, null, true).setOrigin(0, 1);
@@ -121,9 +128,15 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         this.sellButton = new TextButton(this.scene, actionButton.x + actionButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Sell, buttonFont, null, true).setOrigin(0, 1);
         this.sellButton.onClick(this.sellItem.bind(this));
         this.content.add(this.sellButton);
-
-        this.storeButton = new TextButton(this.scene, this.sellButton.x + this.sellButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Store, buttonFont, null, true).setOrigin(0, 1);
-        this.storeButton.onClick(this.storeItem.bind(this));
+        
+        this.storeButton = new TextButton(this.scene, this.sellButton.x + this.sellButton.displayWidth + MARGIN, this.height - PADDING * 2, storeText, buttonFont, null, true).setOrigin(0, 1);
+        this.storeButton.onClick(()=>{
+          if (this.item.isStored) {
+                this.getItem();
+            } else {
+                this.storeItem();
+            }   
+        });
         this.content.add(this.storeButton);
 
         let deleteButton = new TextButton(this.scene, this.storeButton.x + this.storeButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Delete, buttonFont, null, true).setOrigin(0, 1);
@@ -151,7 +164,22 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
     }
 
     storeItem() {
-        
+        if (this.player.getStorage().hasSlotFor(this.item)) {
+            this.item.isStored = true;
+            this.item.isEquiped = false;
+            this.cell.clear();
+            this.player.getStorage().push(this.item);
+            this.destroy();
+        }
+    }
+
+    getItem() {
+        if (this.player.getInventory().hasSlotFor(this.item)) {
+            this.item.isStored = false;
+            this.cell.clear();
+            this.player.getInventory().push(this.item);
+            this.destroy();
+        }
     }
 
     useItem() {
@@ -224,6 +252,7 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         }
         
         this.item.isEquiped = true;
+        this.item.isStored = false;
         selectedCell.setItem(this.item);
         this.cell.clear();
         this.destroy();

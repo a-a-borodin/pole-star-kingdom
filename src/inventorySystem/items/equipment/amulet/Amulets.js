@@ -12,6 +12,7 @@ const Amulets = {
         type:ItemTypes.Amulet,
         isEquipable:true,
         isEquiped:false,
+        isStoraged:false,
         cost:600,
         saleCost:400,
         rarity:ItemsRarity.Rare,

@@ -12,6 +12,7 @@ const Helmets = {
         type:ItemTypes.Helmet,
         isEquipable:true,
         isEquiped:false,
+        isStoraged:false,
         cost:400,
         saleCost:250,
         rarity:ItemsRarity.Common,

@@ -12,6 +12,7 @@ const Cloaks = {
         type:ItemTypes.Cloak,
         isEquipable:true,
         isEquiped:false,
+        isStoraged:false,
         cost:700,
         saleCost:450,
         rarity:ItemsRarity.Rare,
