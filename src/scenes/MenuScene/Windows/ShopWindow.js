@@ -13,7 +13,8 @@ import Helmets from "/src/inventorySystem/items/equipment/helmet/Helmets.js";
 import Gloves from "/src/inventorySystem/items/equipment/gloves/Gloves.js";
 import Rings from "/src/inventorySystem/items/equipment/ring/Rings.js";
 import Cell from "/src/inventorySystem/Cell.js";
-
+import ItemsFactory from "/src/inventorySystem/items/ItemsFactory.js";
+в
 class ShopWindow extends Phaser.GameObjects.Container {
     cells = [];
     equipment = [Weapons,Chestplates,Amulets,Potions,Boots,Cloaks,Helmets,Gloves,Rings];
@@ -75,11 +76,13 @@ class ShopWindow extends Phaser.GameObjects.Container {
     
     generateGoods() {
         for (let cell in this.cells) {
-            let equipmentType = this.equipment[Math.floor(Math.random()*this.equipment.length);
+            let equipmentType = this.equipment[Math.floor(Math.random()*this.equipment.length)];
             let keys = Object.keys(equipmentType);
             let item = equipmentType[keys[ keys.length * Math.random() << 0]];
-        
-            let newCell = new Cell(item,item.amount)
+            console.log(item)
+            let newCell = new Cell(null,item.amount)
+            let i = ItemsFactory.create(item,newCell);
+            newCell.setItem(i);
             this.cells[cell].setCell(newCell);
         }
     }
