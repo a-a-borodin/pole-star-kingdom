@@ -2,9 +2,21 @@ import CellContainer from '/src/inventorySystem/CellContainer.js';
 import InventoryDialogFrame from '/src/dialogFrames/InventoryDialogFrame.js';
 import Strings from '/src/constants/Strings.js';
 import TextManager from '/src/utils/TextManager.js';
+import Resources from '/src/constants/Resources.js';
+import Weapons from "/src/inventorySystem/items/equipment/weapon/Weapons.js";
+import Chestplates from "/src/inventorySystem/items/equipment/chestplate/Chestplates.js";
+import Amulets from "/src/inventorySystem/items/equipment/amulet/Amulets.js";
+import Potions from "/src/inventorySystem/items/potion/Potions.js";
+import Boots from "/src/inventorySystem/items/equipment/boots/Boots.js";
+import Cloaks from "/src/inventorySystem/items/equipment/cloak/Cloaks.js";
+import Helmets from "/src/inventorySystem/items/equipment/helmet/Helmets.js";
+import Gloves from "/src/inventorySystem/items/equipment/gloves/Gloves.js";
+import Rings from "/src/inventorySystem/items/equipment/ring/Rings.js";
+import Cell from "/src/inventorySystem/Cell.js";
 
 class ShopWindow extends Phaser.GameObjects.Container {
     cells = [];
+    equipment = [Weapons,Chestplates,Amulets,Potions,Boots,Cloaks,Helmets,Gloves,Rings];
     
     constructor(context,x,y,width,height) {
         super(context,x,y);
@@ -12,12 +24,22 @@ class ShopWindow extends Phaser.GameObjects.Container {
         this.context = context;
         this.margin = 10;
         this.setSize(width,height);
-
-        this.cellsLayer = context.add.container(0, 0);
-        this.cellsLayer.setSize(this.width / 2 - this.margin * 2, this.height / 1.5);
+        
+        let coinsIcon = context.add.sprite(this.margin,this.margin, Resources.Sprites.UI.Icons.StatisticIcons, 0);
+        this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y, context.player.getScore(), TextManager.SIMPLE, "25px").setOrigin(0, 0.5);
+        this.add(coinsIcon);
+        this.add(this.coinsText);
+        
+        this.refreshText = context.textManager.createText(0, this.coinsText.y, "5:00", TextManager.SIMPLE, "25px").setOrigin(1, 0.5);
+        this.add(this.refreshText);
+        
+        this.cellsLayer = context.add.container(0,this.coinsText.y + this.coinsText.displayHeight + this.margin);
+        this.cellsLayer.setSize(this.width / 1.3 - this.margin, this.height / 1.3 - this.margin);
         this.add(this.cellsLayer);
+        this.refreshText.x = this.cellsLayer.x + this.cellsLayer.width;
         
         this.initCells();
+        this.generateGoods();
     }
     
     initCells() {
@@ -26,7 +48,7 @@ class ShopWindow extends Phaser.GameObjects.Container {
                 return new InventoryDialogFrame(this.context, cell);
         };
 
-        let hrow = 3;
+        let hrow = 4;
         let vrow = 3;
         let margin = this.margin;
         let cellWidth = (this.cellsLayer.width / hrow) - margin;
@@ -48,6 +70,17 @@ class ShopWindow extends Phaser.GameObjects.Container {
             }
             y += cellWidth + margin;
             x = 0;
+        }
+    }
+    
+    generateGoods() {
+        for (let cell in this.cells) {
+            let equipmentType = this.equipment[Math.floor(Math.random()*this.equipment.length);
+            let keys = Object.keys(equipmentType);
+            let item = equipmentType[keys[ keys.length * Math.random() << 0]];
+        
+            let newCell = new Cell(item,item.amount)
+            this.cells[cell].setCell(newCell);
         }
     }
     
