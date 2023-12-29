@@ -1,5 +1,5 @@
 import CellContainer from '/src/inventorySystem/CellContainer.js';
-import InventoryDialogFrame from '/src/dialogFrames/InventoryDialogFrame.js';
+import ShopDialogFrame from '/src/dialogFrames/ShopDialogFrame.js';
 import Strings from '/src/constants/Strings.js';
 import TextManager from '/src/utils/TextManager.js';
 import Resources from '/src/constants/Resources.js';
@@ -14,7 +14,7 @@ import Gloves from "/src/inventorySystem/items/equipment/gloves/Gloves.js";
 import Rings from "/src/inventorySystem/items/equipment/ring/Rings.js";
 import Cell from "/src/inventorySystem/Cell.js";
 import ItemsFactory from "/src/inventorySystem/items/ItemsFactory.js";
-в
+
 class ShopWindow extends Phaser.GameObjects.Container {
     cells = [];
     equipment = [Weapons,Chestplates,Amulets,Potions,Boots,Cloaks,Helmets,Gloves,Rings];
@@ -46,7 +46,7 @@ class ShopWindow extends Phaser.GameObjects.Container {
     initCells() {
         let cellClickFn = (cell) => {
             if (cell != undefined)
-                return new InventoryDialogFrame(this.context, cell);
+                return new ShopDialogFrame(this.context, cell);
         };
 
         let hrow = 4;

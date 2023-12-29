@@ -35,6 +35,7 @@ const Strings = {
     Remove: "Remove",
     Delete: "Delete",
     Sell: "Sell",
+    Buy: "Buy",
     Store: "Store",
     Get: "Get",
     Use: "Use",
