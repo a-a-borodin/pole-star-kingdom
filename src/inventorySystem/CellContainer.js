@@ -40,6 +40,7 @@ class CellContainer extends Phaser.GameObjects.Container{
     setCell(cell){
         if(cell == undefined || cell == null)
             return;
+        
         if(cell.getItem() == undefined || cell.getItem() == null){
             this.vanishBackground.setAlpha(1);
             this.clear();

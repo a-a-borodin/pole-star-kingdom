@@ -13,9 +13,6 @@ const PotionsList = {
         cost:25,
         saleCost:10,
         rarity:ItemsRarity.Primary,
-        description: [
-                Strings.HealPower + Strings.Delemiter + 30,
-            ],
         features:{
             healPower:30,
         },

@@ -64,6 +64,9 @@ class Equipment extends Item {
             this.setAttackSpeed(item.features.attackSpeed);
         }
         
+        if(item.saleCost != undefined) {
+            this.getDescription().push(Strings.SaleCost + item.saleCost);
+        }
     }
     
     setSpeedIncrease(value) {

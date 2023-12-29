@@ -46,6 +46,11 @@ class ShopDialogFrame extends Phaser.GameObjects.Container {
         this.amountText = this.textManager.createText(0, 0, "", TextManager.SIMPLE, "32px");
         this.amountText.setOrigin(1);
         this.content.add(this.amountText);
+        
+        this.priceText = this.textManager.createText(this.width, 0, "", TextManager.SIMPLE, "32px");
+        this.priceText.setOrigin(1);
+        this.priceText.setColor(Colors.YELLOW);
+        this.content.add(this.priceText);
 
         this.title = this.textManager.createText(icon.x + icon.displayWidth + MARGIN, 0, "", TextManager.SIMPLE, "32px");
         this.content.add(this.title);
@@ -62,7 +67,7 @@ class ShopDialogFrame extends Phaser.GameObjects.Container {
     updateText() {
         this.title.setText(this.item.getTitle());
         this.title.setColor(ItemsRarity.getColorByRarity(this.item.getRarity()));
-
+        this.priceText.setText(this.item.getCost());
         this.amountText.setText(this.item.getAmount());
         this.features.setText(this.item.getDescription());
     }
@@ -71,15 +76,35 @@ class ShopDialogFrame extends Phaser.GameObjects.Container {
         let buttonFont = TextManager.getStyle(TextManager.STROKE);
 
         let buyButton = new TextButton(this.scene, 0, this.height - MARGIN * 2, Strings.Buy, buttonFont, null, true).setOrigin(0, 1);
-        buyButton.onClick(() => {
-            
-        });
+        buyButton.onClick(this.buy.bind(this));
+        if(this.player.getScore() < this.item.getCost()) {
+            buyButton.setAlpha(0.7);
+            buyButton.disableInteractive();
+        }
         this.content.add(buyButton);
+        
+        let backButton = new TextButton(this.scene, buyButton.x + buyButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Back, buttonFont, null, true).setOrigin(0, 1);
+        this.content.add(backButton);
+        backButton.onClick(() => {
+            this.destroy();
+        });
     }
 
     checkAmount() {
         if (this.item.getAmount() <= 0) {
             this.cell.clear();
+            this.destroy();
+        }
+    }
+    
+    buy() {
+        if(this.player.getScore() < this.item.getCost())
+            return;
+        
+        if (this.player.getInventory().hasSlotFor(this.item)) {
+            this.cell.clear();
+            this.player.getInventory().push(this.item);
+            this.player.setScore(this.player.getScore() - this.item.getCost());
             this.destroy();
         }
     }

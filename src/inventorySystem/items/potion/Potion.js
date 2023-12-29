@@ -1,11 +1,15 @@
 import Item from "/src/inventorySystem/Items/Item.js";
+import Strings from '/src/constants/Strings.js';
 
 class Potion extends Item {
     constructor(item, cell) {
         super(item, cell);
         
-        if(item.features.healPower)
+        if(item.features.healPower){
             this.setHealPower(item.features.healPower);
+            this.description.push(Strings.HealPower + Strings.Delemiter + this.getHealPower());
+            this.description.push(Strings.SaleCost + this.getSaleCost());
+        }
     }
     
     use(target){

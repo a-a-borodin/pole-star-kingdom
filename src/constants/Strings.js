@@ -37,6 +37,7 @@ const Strings = {
     Sell: "Sell",
     Buy: "Buy",
     Store: "Store",
+    SaleCost:"Sale cost ",
     Get: "Get",
     Use: "Use",
     Back: "Back",

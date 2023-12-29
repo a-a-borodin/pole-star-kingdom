@@ -14,10 +14,13 @@ import Gloves from "/src/inventorySystem/items/equipment/gloves/Gloves.js";
 import Rings from "/src/inventorySystem/items/equipment/ring/Rings.js";
 import Cell from "/src/inventorySystem/Cell.js";
 import ItemsFactory from "/src/inventorySystem/items/ItemsFactory.js";
+import Misc from '/src/constants/Misc.js';
 
 class ShopWindow extends Phaser.GameObjects.Container {
     cells = [];
     equipment = [Weapons,Chestplates,Amulets,Potions,Boots,Cloaks,Helmets,Gloves,Rings];
+    REFRESH_TIME = 60000*10;
+    currentTime;
     
     constructor(context,x,y,width,height) {
         super(context,x,y);
@@ -25,19 +28,35 @@ class ShopWindow extends Phaser.GameObjects.Container {
         this.context = context;
         this.margin = 10;
         this.setSize(width,height);
+        this.currentTime = this.REFRESH_TIME;
         
         let coinsIcon = context.add.sprite(this.margin,this.margin, Resources.Sprites.UI.Icons.StatisticIcons, 0);
         this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y, context.player.getScore(), TextManager.SIMPLE, "25px").setOrigin(0, 0.5);
         this.add(coinsIcon);
         this.add(this.coinsText);
         
-        this.refreshText = context.textManager.createText(0, this.coinsText.y, "5:00", TextManager.SIMPLE, "25px").setOrigin(1, 0.5);
+        this.refreshText = context.textManager.createText(0, this.coinsText.y, 0, TextManager.SIMPLE, "25px").setOrigin(1, 0.5);
         this.add(this.refreshText);
         
         this.cellsLayer = context.add.container(0,this.coinsText.y + this.coinsText.displayHeight + this.margin);
         this.cellsLayer.setSize(this.width / 1.3 - this.margin, this.height / 1.3 - this.margin);
         this.add(this.cellsLayer);
         this.refreshText.x = this.cellsLayer.x + this.cellsLayer.width;
+    
+        this.refreshTimer = this.scene.time.addEvent({
+            delay: 1000,
+            callback: ()=>{
+                this.currentTime -= 1000;
+                this.refreshText.setText(Misc.fancyTimeFormat(this.currentTime/1000));
+                
+                if(this.currentTime <= 0){
+                    this.currentTime = this.REFRESH_TIME;
+                    this.updateGoods();
+                }
+            },
+            callbackScope: context,
+            repeat: true,
+        });
         
         this.initCells();
         this.generateGoods();
@@ -87,10 +106,15 @@ class ShopWindow extends Phaser.GameObjects.Container {
         }
     }
     
-    update() {
+    updateGoods() {
         
     }
-
+    
+    update() {
+        for (let cell in this.cells) {
+            this.cells[cell].setCell(this.cells[cell].getCell());
+        }
+    }
 }
 
 export default ShopWindow;
