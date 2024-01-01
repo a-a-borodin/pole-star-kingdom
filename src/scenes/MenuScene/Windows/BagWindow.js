@@ -1,7 +1,6 @@
 import CellContainer from '/src/inventorySystem/CellContainer.js';
 import InventoryDialogFrame from '/src/dialogFrames/InventoryDialogFrame.js';
 import Strings from '/src/constants/Strings.js';
-import TextManager from '/src/utils/TextManager.js';
 import Resources from '/src/constants/Resources.js';
 
 class BagWindow extends Phaser.GameObjects.Container {
@@ -20,7 +19,7 @@ class BagWindow extends Phaser.GameObjects.Container {
         this.add(this.cellsLayer);
      
         let coinsIcon = context.add.sprite(this.margin, this.cellsLayer.y + this.cellsLayer.height, Resources.Sprites.UI.Icons.StatisticIcons, 0);
-        this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y, context.player.getScore(), TextManager.SIMPLE, "25px").setOrigin(0, 0.5);
+        this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y, context.player.getScore()).setOrigin(0, 0.5);
         this.cellsLayer.add(coinsIcon);
         this.cellsLayer.add(this.coinsText);
         
@@ -38,17 +37,17 @@ class BagWindow extends Phaser.GameObjects.Container {
     initStats() {
         let fontSize = "25px";
         let heartIcon = this.context.add.sprite(this.margin, 0, Resources.Sprites.UI.Icons.StatisticIcons, 3);
-        this.healthText = this.context.textManager.createText(heartIcon.x + heartIcon.displayWidth / 1.5, heartIcon.y, this.context.player.getHealth() + Strings.Slash + this.context.player.getMaxHealth(), TextManager.SIMPLE, fontSize).setOrigin(0, 0.5);
+        this.healthText = this.context.textManager.createText(heartIcon.x + heartIcon.displayWidth / 1.5, heartIcon.y, this.context.player.getHealth() + Strings.Slash + this.context.player.getMaxHealth()).setOrigin(0, 0.5);
         this.statsLayer.add(heartIcon);
         this.statsLayer.add(this.healthText);
 
         let defenseIcon = this.context.add.sprite(this.margin, heartIcon.y + heartIcon.displayHeight, Resources.Sprites.UI.Icons.StatisticIcons, 2);
-        this.defenseText = this.context.textManager.createText(defenseIcon.x + defenseIcon.displayWidth / 1.5, defenseIcon.y, this.context.player.getDefense(), TextManager.SIMPLE, fontSize).setOrigin(0, 0.5);
+        this.defenseText = this.context.textManager.createText(defenseIcon.x + defenseIcon.displayWidth / 1.5, defenseIcon.y, this.context.player.getDefense()).setOrigin(0, 0.5);
         this.statsLayer.add(defenseIcon);
         this.statsLayer.add(this.defenseText);
 
         let damageIcon = this.context.add.sprite(this.margin, defenseIcon.y + defenseIcon.displayHeight, Resources.Sprites.UI.Icons.StatisticIcons, 1);
-        this.damageText = this.context.textManager.createText(damageIcon.x + damageIcon.displayWidth / 1.5, damageIcon.y, this.context.player.getDamage(), TextManager.SIMPLE, fontSize).setOrigin(0, 0.5);
+        this.damageText = this.context.textManager.createText(damageIcon.x + damageIcon.displayWidth / 1.5, damageIcon.y, this.context.player.getDamage()).setOrigin(0, 0.5);
         this.statsLayer.add(damageIcon);
         this.statsLayer.add(this.damageText);
     }

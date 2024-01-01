@@ -2,10 +2,9 @@ import TextManager from '/src/utils/TextManager.js';
 import Resources from '/src/constants/Resources.js';
 import Strings from '/src/constants/Strings.js';
 import TextButton from '/src/utils/TextButton.js';
-import Colors from '/src/constants/Colors.js';
+import Misc from '/src/utils/Misc.js';
 import Scenes from '/src/constants/Scenes.js';
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
+import EventManager from '/src/utils/EventManager.js';
 import ItemTypes from '/src/inventorySystem/items/ItemTypes.js';
 import ItemsRarity from '/src/inventorySystem/items/ItemsRarity.js';
 
@@ -43,19 +42,19 @@ class ShopDialogFrame extends Phaser.GameObjects.Container {
         icon.setDisplaySize(this.width / 5, this.width / 5);
         this.content.add(icon);
 
-        this.amountText = this.textManager.createText(0, 0, "", TextManager.SIMPLE, "32px");
+        this.amountText = this.textManager.createText(0, 0, "");
         this.amountText.setOrigin(1);
         this.content.add(this.amountText);
         
-        this.priceText = this.textManager.createText(this.width, 0, "", TextManager.SIMPLE, "32px");
+        this.priceText = this.textManager.createText(this.width, 0, "");
         this.priceText.setOrigin(1);
-        this.priceText.setColor(Colors.YELLOW);
+        this.priceText.setColor(Misc.Colors.YELLOW);
         this.content.add(this.priceText);
 
-        this.title = this.textManager.createText(icon.x + icon.displayWidth + MARGIN, 0, "", TextManager.SIMPLE, "32px");
+        this.title = this.textManager.createText(icon.x + icon.displayWidth + MARGIN, 0, "");
         this.content.add(this.title);
 
-        this.features = this.textManager.createText(icon.x + icon.displayWidth + MARGIN, this.title.y + this.title.displayHeight + MARGIN, "", TextManager.SIMPLE, "22px");
+        this.features = this.textManager.createText(icon.x + icon.displayWidth + MARGIN, this.title.y + this.title.displayHeight + MARGIN, "", TextManager.SIMPLE, {fontSize:TextManager.FontSize.SMALL});
         this.updateText();
         this.content.add(this.features);
 
@@ -73,7 +72,7 @@ class ShopDialogFrame extends Phaser.GameObjects.Container {
     }
     
     initButtons() {
-        let buttonFont = TextManager.getStyle(TextManager.STROKE);
+        let buttonFont = TextManager.Style.STROKE;
 
         let buyButton = new TextButton(this.scene, 0, this.height - MARGIN * 2, Strings.Buy, buttonFont, null, true).setOrigin(0, 1);
         buyButton.onClick(this.buy.bind(this));

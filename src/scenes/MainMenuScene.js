@@ -1,12 +1,10 @@
 import Scenes from '/src/constants/Scenes.js';
 import Strings from '/src/constants/Strings.js';
-import Misc from '/src/constants/Misc.js';
+import Misc from '/src/utils/Misc.js';
 import TextManager from '/src/utils/TextManager.js';
 import Resources from '/src/constants/Resources.js';
 import LocalStorageManager from '/src/utils/LocalStorageManager.js';
 import ParallaxBackgroundManager from '/src/utils/ParallaxBackgroundManager.js';
-import Colors from '/src/constants/Colors.js';
-
 class MainMenuScene extends Phaser.Scene{
     constructor(config){
         super(config);

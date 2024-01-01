@@ -1,13 +1,11 @@
 import TextManager from '/src/utils/TextManager.js';
-import Colors from '/src/constants/Colors.js';
-import Misc from '/src/constants/Misc.js';
+import Misc from '/src/utils/Misc.js';
 import Resources from '/src/constants/Resources.js';
-import EventCenter from '/src/constants/EventCenter.js';
 import Joystick from '/src/utils/Joystick.js';
-import Events from '/src/constants/Events.js';
 import Scenes from '/src/constants/Scenes.js';
 import Strings from '/src/constants/Strings.js';
 import WizzardDialogFrame from '/src/dialogFrames/WizzardDialogFrame.js';
+import EventManager from '/src/utils/EventManager.js';
 
 class UIScene extends Phaser.Scene {
     constructor(config) {
@@ -28,34 +26,34 @@ class UIScene extends Phaser.Scene {
       /*  this.leftZone = this.add.tileSprite(0,0,this.sceneWidth/2,this.sceneHeight).setOrigin(0)
         this.leftZone.setInteractive();
         this.leftZone.on("pointerdown",()=>{
-            EventCenter.emit(Events.MOVE_LEFT);
+            EventManager.emit(EventManager.Events.MOVE_LEFT);
         });
         this.leftZone.on("pointerout",()=>{
-            EventCenter.emit(Events.STOP_MOVE);
+            EventManager.emit(EventManager.Events.STOP_MOVE);
         });
         this.rightZone = this.add.tileSprite(this.sceneWidth/2,0,this.sceneWidth/2,this.sceneHeight).setOrigin(0)
         this.rightZone.setInteractive();
         this.rightZone.on("pointerdown",()=>{
-            EventCenter.emit(Events.MOVE_RIGHT);
+            EventManager.emit(EventManager.Events.MOVE_RIGHT);
         });
         this.rightZone.on("pointerout",()=>{
-            EventCenter.emit(Events.STOP_MOVE);
+            EventManager.emit(EventManager.Events.STOP_MOVE);
         });*/
-       this.joystick = new Joystick(this, {
+     /*  this.joystick = new Joystick(this, {
             base: this.add.sprite(0, 0, Resources.Sprites.UI.Joystick.Base),
             thumb: this.add.sprite(0, 0, Resources.Sprites.UI.Joystick.Thumb),
         });
         this.joystick.onLeft(()=> {
-            EventCenter.emit(Events.MOVE_LEFT);
+            EventManager.emit(EventManager.Events.MOVE_LEFT);
             this.joystick.thumb.flipX = true;
         });
         this.joystick.onRight(()=> {
-            EventCenter.emit(Events.MOVE_RIGHT);
+            EventManager.emit(EventManager.Events.MOVE_RIGHT);
             this.joystick.thumb.flipX = false;
         });
         this.joystick.onPointerOut(()=> {
-            EventCenter.emit(Events.STOP_MOVE);
-        });
+            EventManager.emit(EventManager.Events.STOP_MOVE);
+        });*/
 
         this.waveIcon = this.add.sprite(this.sceneWidth/2, 15, Resources.Sprites.UI.Icons.SkullIcon, 1).setOrigin(0.5, 0).setAlpha(0);
         this.waveIDText = this.textManager.createText(this.waveIcon.x - this.waveIcon.displayWidth/2 - 10, 15, "", TextManager.STROKE).setOrigin(1, 0.25).setAlpha(0);
@@ -66,7 +64,7 @@ class UIScene extends Phaser.Scene {
         this.logoText.setFontSize("80px");
 
         this.scoreText = this.textManager.createText(this.sceneWidth, 15, 0, TextManager.STROKE).setOrigin(0).setAlpha(0.7);
-        this.scoreText.setColor(Colors.YELLOW);
+        this.scoreText.setColor(Misc.Colors.YELLOW);
 
         this.menuButton = this.add.sprite(15, 15, Resources.Sprites.UI.Buttons.MenuButton).setInteractive().setOrigin(0).on("pointerdown", ()=> {
             this.scene.switch(Scenes.MENU);
@@ -78,23 +76,23 @@ class UIScene extends Phaser.Scene {
     update() {
         if (this.cursors.left.isDown)
         {
-            EventCenter.emit(Events.MOVE_LEFT);
+            EventManager.emit(EventManager.Events.MOVE_LEFT);
         }
         else if (this.cursors.right.isDown)
         {
-            EventCenter.emit(Events.MOVE_RIGHT);
+            EventManager.emit(EventManager.Events.MOVE_RIGHT);
         }
         else
         {
-           // EventCenter.emit(Events.STOP_MOVE);
+            EventManager.emit(EventManager.Events.STOP_MOVE);
         }
     }
 
     initEvents() {
-        EventCenter.on(Events.UPDATE_SCORE, (score, negative)=> {
+        EventManager.on(EventManager.Events.UPDATE_SCORE, (score, negative)=> {
             //if(this.scoreText._text > score)
             if (negative)
-                this.scoreText.setColor(Colors.RED);
+                this.scoreText.setColor(Misc.Colors.RED);
 
             this.scoreText.setText(score);
 
@@ -114,20 +112,20 @@ class UIScene extends Phaser.Scene {
                     duration: 250,
                 });
                 this.scoreTween.on("complete", ()=> {
-                    this.scoreText.setColor(Colors.YELLOW);
+                    this.scoreText.setColor(Misc.Colors.YELLOW);
                 });
             });
         },
             this);
 
-        EventCenter.on(Events.UPDATE_WAVE_INFO,
+        EventManager.on(EventManager.Events.UPDATE_WAVE_INFO,
             (wave) => {
                 this.waveTimerText.setText(Misc.fancyTimeFormat(wave.currentTime/1000));
                 this.killsCountText.setText(wave.currentKills + "/" + wave.enemiesAmount);
                 this.waveIDText.setText(Strings.Wave + " " + wave.id);
             });
 
-        EventCenter.on(Events.WAVE_START,
+        EventManager.on(EventManager.Events.WAVE_START,
             (resumed)=> {
                 this.killsCountText.setAlpha(0.7);
                 this.waveIcon.setAlpha(0.7);
@@ -140,7 +138,7 @@ class UIScene extends Phaser.Scene {
                 }
             });
 
-        EventCenter.on(Events.WAVE_END,
+        EventManager.on(EventManager.Events.WAVE_END,
             ()=> {
                 this.killsCountText.setAlpha(0);
                 this.waveIcon.setAlpha(0);
@@ -151,7 +149,7 @@ class UIScene extends Phaser.Scene {
                 this.showLogo(500, 1500);
             });
 
-        EventCenter.on(Events.WAVE_COMPLETE,
+        EventManager.on(EventManager.Events.WAVE_COMPLETE,
             ()=> {
                 this.killsCountText.setAlpha(0);
                 this.waveIcon.setAlpha(0);
@@ -162,17 +160,17 @@ class UIScene extends Phaser.Scene {
                 this.showLogo(500, 1500);
             });
 
-        EventCenter.on(Events.SHOW_WIZZARD_DIALOG,
+        EventManager.on(EventManager.Events.SHOW_WIZZARD_DIALOG,
             ()=> {
                 if (this.wizzardDialog != undefined)
                     this.wizzardDialog.destroy();
                 this.wizzardDialog = new WizzardDialogFrame(this, this.sceneWidth/2, this.sceneHeight/2);
             });
 
-        EventCenter.on(Events.SHOW_FANCY_TEXT,
+        EventManager.on(EventManager.Events.SHOW_FANCY_TEXT,
             (config)=> {
                 let title = config.title;
-                let style = TextManager.getStyle(TextManager.STROKE);
+                let style = TextManager.Style.STROKE;
                 let text = config.scene.add.text(config.x, config.y, title, style).setOrigin(0.5);
                 text.depth = 999;
                 text.setColor(config.color);

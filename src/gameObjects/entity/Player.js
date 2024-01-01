@@ -1,5 +1,4 @@
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
+import EventManager from '/src/utils/EventManager.js';
 import Entity from '/src/gameObjects/Entity/Entity.js';
 import Anims from '/src/constants/Anims.js';
 import Resources from '/src/constants/Resources.js';
@@ -26,7 +25,7 @@ class Player extends Entity {
         //TODO
         this.onDestroy(() => {
             scene.registry.destroy();
-            scene.events.off();
+            scene.EventManager.Events.off();
             scene.scene.restart();
             scene.scene.stop(Scenes.UI);
             scene.scene.run(Scenes.UI);
@@ -46,16 +45,16 @@ class Player extends Entity {
     }
 
     initEvents() {
-        EventCenter.on(Events.STOP_MOVE, () => {
+        EventManager.on(EventManager.Events.STOP_MOVE, () => {
             this.stopMove();
         }, this);
-        EventCenter.on(Events.MOVE_LEFT, () => {
+        EventManager.on(EventManager.Events.MOVE_LEFT, () => {
             this.moveLeft();
         }, this);
-        EventCenter.on(Events.MOVE_RIGHT, () => {
+        EventManager.on(EventManager.Events.MOVE_RIGHT, () => {
             this.moveRight();
         }, this);
-        EventCenter.on(Events.UPDATE_SCORE, (newScore) => {
+        EventManager.on(EventManager.Events.UPDATE_SCORE, (newScore) => {
             this.setScore(newScore);
         });
     }

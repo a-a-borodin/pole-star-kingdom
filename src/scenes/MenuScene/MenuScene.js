@@ -2,8 +2,7 @@ import Scenes from '/src/constants/Scenes.js';
 import Strings from '/src/constants/Strings.js';
 import TextManager from '/src/utils/TextManager.js';
 import Resources from '/src/constants/Resources.js';
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
+import EventManager from '/src/utils/EventManager.js';
 import TextButton from '/src/utils/TextButton.js';
 import BagWindow from './Windows/BagWindow.js';
 import StorageWindow from './Windows/StorageWindow.js';
@@ -80,7 +79,7 @@ class MenuScene extends Phaser.Scene {
     }
 
     initButtons() {
-        let buttonFont = TextManager.getStyle(TextManager.STROKE);
+        let buttonFont = TextManager.Style.STROKE;
         buttonFont.fontSize = "35px";
 
         let resumeButton = new TextButton(this, this.margin, this.buttonsLayer.height / 4, Strings.Resume, buttonFont, null, true).setOrigin(0);
@@ -106,6 +105,7 @@ class MenuScene extends Phaser.Scene {
                     child.setFrame(0);
                     return;
                 }
+                if(child.button)
                 child.setFrame(1);
             });
         };
@@ -118,6 +118,7 @@ class MenuScene extends Phaser.Scene {
             this.currentWindow = this.bagWindow;
             fn(this.bagButton);
         });
+        this.bagButton.button = true;
         this.bagButton.setDisplaySize(this.inventoryButtonsLayer.height, this.inventoryButtonsLayer.height);
         this.inventoryButtonsLayer.add(this.bagButton);
 
@@ -129,6 +130,7 @@ class MenuScene extends Phaser.Scene {
             this.currentWindow = this.shopWindow;
             fn(this.shopButton);
         });
+        this.shopButton.button = true;
         this.shopButton.setDisplaySize(this.inventoryButtonsLayer.height, this.inventoryButtonsLayer.height);
         this.inventoryButtonsLayer.add(this.shopButton);
 
@@ -140,6 +142,7 @@ class MenuScene extends Phaser.Scene {
             this.currentWindow = this.storageWindow;
             fn(this.storageButton);
         });
+        this.storageButton.button = true;
         this.storageButton.setDisplaySize(this.inventoryButtonsLayer.height, this.inventoryButtonsLayer.height);
         this.inventoryButtonsLayer.add(this.storageButton);
 
@@ -147,16 +150,17 @@ class MenuScene extends Phaser.Scene {
         this.upgradesButton.on("pointerup", ()=>{
             fn(this.upgradesButton);
         });
+        this.upgradesButton.button = true;
         this.upgradesButton.setDisplaySize(this.inventoryButtonsLayer.height, this.inventoryButtonsLayer.height);
         this.inventoryButtonsLayer.add(this.upgradesButton);
     }
 
     initEvents() {
-        EventCenter.on(Events.SHOP_COLLIDE_START, () => {
+        EventManager.on(EventManager.Events.SHOP_COLLIDE_START, () => {
             this.shopButton.setInteractive();
             this.shopButton.setAlpha(1);
         });
-        EventCenter.on(Events.SHOP_COLLIDE_FINISH, () => {
+        EventManager.on(EventManager.Events.SHOP_COLLIDE_FINISH, () => {
             this.shopButton.disableInteractive();
             this.shopButton.setAlpha(0.4);
 
@@ -169,14 +173,14 @@ class MenuScene extends Phaser.Scene {
             }
         });
 
-        EventCenter.on(Events.HOME_COLLIDE_START, () => {
+        EventManager.on(EventManager.Events.HOME_COLLIDE_START, () => {
             this.upgradesButton.setInteractive();
             this.upgradesButton.setAlpha(1);
             
             this.storageButton.setInteractive();
             this.storageButton.setAlpha(1);
         });
-        EventCenter.on(Events.HOME_COLLIDE_FINISH, () => {
+        EventManager.on(EventManager.Events.HOME_COLLIDE_FINISH, () => {
             this.upgradesButton.disableInteractive();
             this.upgradesButton.setAlpha(0.4);
             

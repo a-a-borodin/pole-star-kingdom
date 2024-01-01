@@ -1,8 +1,7 @@
 import Anims from '/src/constants/Anims.js';
 import Resources from '/src/constants/Resources.js';
 import ItemsRarity from '/src/inventorySystem/items/ItemsRarity.js';
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
+import EventManager from '/src/utils/EventManager.js';
 
 class Chest extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, item) {
@@ -32,7 +31,7 @@ class Chest extends Phaser.Physics.Arcade.Sprite {
         this.on("animationcomplete", () => {
             this.destroy();
         });
-        EventCenter.emit(Events.SHOW_FANCY_TEXT, {
+        EventManager.emit(EventManager.Events.SHOW_FANCY_TEXT, {
             x: this.x,
             y: this.y,
             title: item.getTitle(),

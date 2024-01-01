@@ -1,7 +1,5 @@
 import Resources from '/src/constants/Resources.js';
 import TextManager from '/src/utils/TextManager.js';
-import Colors from '/src/constants/Colors.js';
-
 class CellContainer extends Phaser.GameObjects.Container{
     constructor(scene,x,y,width,height,padding,showAmount, cell, background, vanishBackground){
         super(scene,x,y);
@@ -30,7 +28,7 @@ class CellContainer extends Phaser.GameObjects.Container{
         this.icon.setDisplaySize(this.width-padding,this.height-padding);
         this.add(this.icon);
         
-        this.amountText = this.textManager.createText(0,0,"",TextManager.SIMPLE).setOrigin(0.5);
+        this.amountText = this.textManager.createText(0,0,"").setOrigin(0.5);
         this.add(this.amountText);
         
         scene.add.existing(this);

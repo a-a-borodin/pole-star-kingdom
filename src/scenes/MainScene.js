@@ -1,7 +1,6 @@
-import Misc from '/src/constants/Misc.js';
+import Misc from '/src/utils/Misc.js';
 import Resources from '/src/constants/Resources.js';
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
+import EventManager from '/src/utils/EventManager.js';
 import Player from '/src/gameObjects/entity/Player.js';
 import WaveManager from '/src/wavesSystem/WaveManager.js';
 import Waves from '/src/wavesSystem/Waves.js';
@@ -15,7 +14,7 @@ class MainScene extends Phaser.Scene{
     }
     
     init(){
-        this.sceneWidth = 75*32;
+        this.sceneWidth = 75*48;
 		this.sceneHeight = this.cameras.main.height;			
 		this.input.addPointer(Misc.MAX_TOUCH_COUNT);
 		this.groundHeight = 93;
@@ -40,7 +39,7 @@ class MainScene extends Phaser.Scene{
         
 		const groundMap = this.make.tilemap({ key: Resources.Json.Maps.MainGroundMap });
         const groundTileset = groundMap.addTilesetImage("ground",Resources.Sprites.Materials.OakWoods.OakWoodsGround);
-        this.groundLayer = groundMap.createLayer("ground", groundTileset, 0, 0);
+        this.groundLayer = groundMap.createLayer("ground", groundTileset, 0, -230);
         this.groundLayer.setCollisionByExclusion(-1, true);
         
         this.home = this.physics.add.sprite(this.sceneWidth /2,this.groundLevel,Resources.Sprites.Materials.OakWoods.OakCoinTree).setOrigin(0.5,1);
@@ -84,7 +83,7 @@ class MainScene extends Phaser.Scene{
         });
         this.wizzard.play(Anims.Wizzard.Idle.key);
         this.wizzard.on("pointerdown",()=>{
-            EventCenter.emit(Events.SHOW_WIZZARD_DIALOG);
+            EventManager.emit(EventManager.Events.SHOW_WIZZARD_DIALOG);
         });
         
         this.wizzard.dialog = this.add.sprite(this.wizzard.x + this.wizzard.displayWidth/2, this.wizzard.y - this.wizzard.displayHeight, Resources.Sprites.UI.Dialogs.PopUpTalkDialog).setOrigin(0,1).setAlpha(0);
@@ -133,15 +132,15 @@ class MainScene extends Phaser.Scene{
     
     update(){
         if(this.physics.overlap(this.player, this.shop)){
-            EventCenter.emit(Events.SHOP_COLLIDE_START);
+            EventManager.emit(EventManager.Events.SHOP_COLLIDE_START);
         }else{
-            EventCenter.emit(Events.SHOP_COLLIDE_FINISH);
+            EventManager.emit(EventManager.Events.SHOP_COLLIDE_FINISH);
         }
 
         if(this.physics.overlap(this.player,this.home)){
-            EventCenter.emit(Events.HOME_COLLIDE_START);
+            EventManager.emit(EventManager.Events.HOME_COLLIDE_START);
         }else{
-            EventCenter.emit(Events.HOME_COLLIDE_FINISH);
+            EventManager.emit(EventManager.Events.HOME_COLLIDE_FINISH);
         }
 
         if(this.physics.overlap(this.player,this.wizzard)) {
@@ -184,15 +183,15 @@ class MainScene extends Phaser.Scene{
             this.portal.setAlpha(1);
         };
         
-        EventCenter.on(Events.WAVE_START, function(){
+        EventManager.on(EventManager.Events.WAVE_START, function(){
             openPortal();
         });
         
-        EventCenter.on(Events.WAVE_END, ()=>{
+        EventManager.on(EventManager.Events.WAVE_END, ()=>{
             closePortal();
         });
         
-        EventCenter.on(Events.WAVE_COMPLETE, ()=>{
+        EventManager.on(EventManager.Events.WAVE_COMPLETE, ()=>{
             closePortal();
         });
     }

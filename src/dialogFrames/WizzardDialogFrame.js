@@ -2,10 +2,9 @@ import TextManager from '/src/utils/TextManager.js';
 import Resources from '/src/constants/Resources.js';
 import Strings from '/src/constants/Strings.js';
 import TextButton from '/src/utils/TextButton.js';
-import Colors from '/src/constants/Colors.js';
+import Misc from '/src/utils/Misc.js';
 import Scenes from '/src/constants/Scenes.js';
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
+import EventManager from '/src/utils/EventManager.js';
 import Waves from '/src/wavesSystem/Waves.js';
 
 class WizzardDialogFrame extends Phaser.GameObjects.Container {
@@ -46,7 +45,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
             .setInteractive();
         headerContent.add(headerBackground);
 
-        this.headerText = this.textManager.createText(headerContent.x + this.margin, headerContent.y + headerContent.height / 2, Strings.Wave + " " + this.waveID, TextManager.STROKE, "35px")
+        this.headerText = this.textManager.createText(headerContent.x + this.margin, headerContent.y + headerContent.height / 2, Strings.Wave + " " + this.waveID, TextManager.STROKE)
             .setOrigin(0, 0.5);
         headerContent.add(this.headerText);
 
@@ -66,16 +65,16 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
 
         let coinsIcon = new Phaser.GameObjects.Sprite(scene, this.margin, this.waveIcon.y + this.waveIcon.displayHeight + this.margin, Resources.Sprites.UI.Icons.StatisticIcons, 0)
             .setOrigin(0);
-        this.costText = this.textManager.createText(coinsIcon.x + coinsIcon.displayWidth + this.margin, coinsIcon.y, this.currentWave.warpCost, TextManager.SIMPLE, "30px")
+        this.costText = this.textManager.createText(coinsIcon.x + coinsIcon.displayWidth + this.margin, coinsIcon.y, this.currentWave.warpCost)
             .setOrigin(0);
         content.add(coinsIcon);
         content.add(this.costText);
 
-        this.waveTitle = this.textManager.createText(this.waveIcon.x + this.waveIcon.displayWidth + this.margin, this.margin, this.currentWave.title, TextManager.STROKE, "35px")
+        this.waveTitle = this.textManager.createText(this.waveIcon.x + this.waveIcon.displayWidth + this.margin, this.margin, this.currentWave.title, TextManager.STROKE)
             .setOrigin(0);
         content.add(this.waveTitle);
 
-        this.description = this.textManager.createText(this.waveTitle.x, this.waveTitle.y + this.waveTitle.displayHeight, this.currentWave.description, TextManager.STROKE, "24px")
+        this.description = this.textManager.createText(this.waveTitle.x, this.waveTitle.y + this.waveTitle.displayHeight, this.currentWave.description, TextManager.STROKE, {fontSize:TextManager.FontSize.SMALL})
             .setOrigin(0);
         this.description.width = content.width - this.description.x - this.margin;
         this.description.setWordWrapWidth(this.description.width, true);
@@ -98,13 +97,13 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         });
         selectWaveContainer.add(leftArrow);
 
-        let submit = new TextButton(this.scene, selectWaveContainer.width / 2, -leftArrow.displayHeight / 2, Strings.Battle, TextManager.getStyle(TextManager.STROKE), null, true)
+        let submit = new TextButton(this.scene, selectWaveContainer.width / 2, -leftArrow.displayHeight / 2, Strings.Battle, TextManager.Style.STROKE, null, true)
             .setFontSize("35px")
             .setOrigin(0.5);
         submit.onClick(() => {
             if (this.player.getScore() < this.currentWave.warpCost)
                 return;
-            EventCenter.emit(Events.UPDATE_SCORE, this.player.getScore() - this.currentWave.warpCost, true);
+            EventManager.emit(EventManager.Events.UPDATE_SCORE, this.player.getScore() - this.currentWave.warpCost, true);
             this.waveManager.setWave(this.currentWave);
             this.waveManager.startWave();
             this.destroy();

@@ -1,7 +1,7 @@
-import Colors from '/src/constants/Colors.js';
+import Misc from '/src/utils/Misc.js';
 
-const BASE_COLOR = Colors.WHITE;
-const HOVER_COLOR = Colors.YELLOW;
+const BASE_COLOR = Misc.Colors.WHITE;
+const HOVER_COLOR = Misc.Colors.YELLOW;
 
 class TextButton extends Phaser.GameObjects.Text {
     constructor(scene, x, y, text, font, config, isInteractive){

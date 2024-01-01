@@ -1,4 +1,5 @@
-const Events = {
+const EventManager = new Phaser.Events.EventEmitter();
+EventManager.Events = {
     MOVE_LEFT: "MOVE_LEFT",
     MOVE_RIGHT: "MOVE_RIGHT",
     STOP_MOVE: "STOP_MOVE",
@@ -18,4 +19,4 @@ const Events = {
     SHOW_FANCY_TEXT: "SHOW_FANCY_TEXT",
 };
 
-export default Events;
+export default EventManager;

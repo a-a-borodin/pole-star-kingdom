@@ -1,5 +1,4 @@
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
+import EventManager from '/src/utils/EventManager.js';
 import Waves from '/src/wavesSystem/Waves.js';
 import EnemyFactory from '/src/gameObjects/entity/enemy/EnemyFactory.js';
 
@@ -20,8 +19,8 @@ class WaveManager {
         if(this.onWaveStart != undefined)
             this.onWaveStart();
         
-        EventCenter.emit(Events.UPDATE_WAVE_INFO,this.getWave());
-        EventCenter.emit(Events.WAVE_START, this.wave.isStarted);
+        EventManager.emit(EventManager.Events.UPDATE_WAVE_INFO,this.getWave());
+        EventManager.emit(EventManager.Events.WAVE_START, this.wave.isStarted);
         
         this.wave.isStarted = true;
         this.waveTimer = this.scene.time.addEvent({
@@ -32,7 +31,7 @@ class WaveManager {
                     this.waveEnd();
                     return;
                 }
-                EventCenter.emit(Events.UPDATE_WAVE_INFO, this.wave);
+                EventManager.emit(EventManager.Events.UPDATE_WAVE_INFO, this.wave);
             },
             callbackScope: this,
             repeat: ((this.wave.maxTime - this.wave.currentTime)/1000),
@@ -41,12 +40,12 @@ class WaveManager {
     
     waveEnd(){
         this.getWave().isStarted = false;
-        EventCenter.emit(Events.WAVE_END);  
+        EventManager.emit(EventManager.Events.WAVE_END);  
     }
     
     waveComplete(){
         this.getWave().isStarted = false;
-        EventCenter.emit(Events.WAVE_COMPLETE);
+        EventManager.emit(EventManager.Events.WAVE_COMPLETE);
     }
     
     onWaveStart(){
@@ -69,7 +68,7 @@ class WaveManager {
                 return;
               
             this.wave.currentKills += 1; 
-            EventCenter.emit(Events.UPDATE_WAVE_INFO,this.wave);
+            EventManager.emit(EventManager.Events.UPDATE_WAVE_INFO,this.wave);
             if(this.wave.currentKills >= this.wave.enemiesAmount){
                 this.waveComplete();
                 return;

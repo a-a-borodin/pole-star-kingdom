@@ -3,8 +3,7 @@ import Chest from '/src/gameObjects/Chest.js';
 import Anims from '/src/constants/Anims.js';
 import ItemsFactory from '/src/inventorySystem/items/ItemsFactory.js';
 import Coin from '/src/gameObjects/Coin.js';
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
+import EventManager from '/src/utils/EventManager.js';
 
 class Enemy extends Entity{
     constructor(scene, x, y, type){
@@ -75,7 +74,7 @@ class Enemy extends Entity{
             this.scene.physics.add.overlap(this.getEnemy(), coin, (player, coin)=>{
                 if(!coin.dropped)
                     return;
-	            EventCenter.emit(Events.UPDATE_SCORE, player.getScore() + coin.getPrice());
+	            EventManager.emit(EventManager.Events.UPDATE_SCORE, player.getScore() + coin.getPrice());
 	            coin.destroy();
 	        });
         }

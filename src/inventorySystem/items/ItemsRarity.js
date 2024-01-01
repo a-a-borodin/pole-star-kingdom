@@ -1,4 +1,4 @@
-import Colors from '/src/constants/Colors.js';
+import Misc from '/src/utils/Misc.js';
 
 const ItemsRarity = {
     Primary:0.9,
@@ -11,15 +11,15 @@ const ItemsRarity = {
 ItemsRarity.getColorByRarity = function(rarity) {
     switch(rarity) {
         case ItemsRarity.Primary:
-            return Colors.GREY;
+            return Misc.Colors.GREY;
         case ItemsRarity.Common:
-            return Colors.WHITE;
+            return Misc.Colors.WHITE;
         case ItemsRarity.Rare:
-            return Colors.BLUE;
+            return Misc.Colors.BLUE;
         case ItemsRarity.Epic:
-            return Colors.PINK;
+            return Misc.Colors.PINK;
         case ItemsRarity.Legendary:
-            return Colors.RED;
+            return Misc.Colors.RED;
     }
 }
 

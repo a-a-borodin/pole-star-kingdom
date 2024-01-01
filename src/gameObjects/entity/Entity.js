@@ -1,11 +1,8 @@
 import Inventory from "/src/inventorySystem/Inventory.js";
-import TextManager from '/src/utils/TextManager.js';
-import Colors from '/src/constants/Colors.js';
+import Misc from '/src/utils/Misc.js';
 import ProgressBar from '/src/utils/ProgressBar.js';
 import Resources from '/src/constants/Resources.js';
-import EventCenter from '/src/constants/EventCenter.js';
-import Events from '/src/constants/Events.js';
-
+import EventManager from '/src/utils/EventManager.js';
 class Entity extends Phaser.Physics.Arcade.Sprite {
     stats = {};
     _anims = {};
@@ -16,7 +13,6 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.setCollideWorldBounds();
-        this.textManager = new TextManager(scene);
         this.scene = scene;
         this.setAttackReady(true);
         this.setBounce(0.3);
@@ -116,19 +112,19 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
         let fancyTextColor;
         let fancyText;
         if (this.getHealth() > health){
-            fancyTextColor = Colors.RED;
+            fancyTextColor = Misc.Colors.RED;
             fancyText = this.getHealth() - health;
         } 
         if (this.getHealth() < health) {
             fancyText = health - this.getHealth();
-            fancyTextColor = Colors.GREEN;
+            fancyTextColor = Misc.Colors.GREEN;
         }
         if (this.getHealth() == health){
             fancyText = health - this.getHealth();
-            fancyTextColor = Colors.GREY;
+            fancyTextColor = Misc.Colors.GREY;
         }
         
-        EventCenter.emit(Events.SHOW_FANCY_TEXT, {
+        EventManager.emit(EventManager.Events.SHOW_FANCY_TEXT, {
             x: this.x,
             y: this.y,
             title: parseFloat(fancyText.toFixed(2)),
@@ -381,7 +377,7 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
         if (object.getHealth() <= 0)
             object.kill();
 
-        // this.createStatsText(object,damage,Colors.RED);
+        // this.createStatsText(object,damage,Misc.Colors.RED);
         this.knockObject(object);
 
         this.attackTimer = this.scene.time.addEvent({

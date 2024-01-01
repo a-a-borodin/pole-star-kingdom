@@ -14,7 +14,7 @@ import Gloves from "/src/inventorySystem/items/equipment/gloves/Gloves.js";
 import Rings from "/src/inventorySystem/items/equipment/ring/Rings.js";
 import Cell from "/src/inventorySystem/Cell.js";
 import ItemsFactory from "/src/inventorySystem/items/ItemsFactory.js";
-import Misc from '/src/constants/Misc.js';
+import Misc from '/src/utils/Misc.js';
 
 class ShopWindow extends Phaser.GameObjects.Container {
     cells = [];
@@ -31,11 +31,11 @@ class ShopWindow extends Phaser.GameObjects.Container {
         this.currentTime = this.REFRESH_TIME;
         
         let coinsIcon = context.add.sprite(this.margin,this.margin, Resources.Sprites.UI.Icons.StatisticIcons, 0);
-        this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y, context.player.getScore(), TextManager.SIMPLE, "25px").setOrigin(0, 0.5);
+        this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y, context.player.getScore()).setOrigin(0, 0.5);
         this.add(coinsIcon);
         this.add(this.coinsText);
         
-        this.refreshText = context.textManager.createText(0, this.coinsText.y, 0, TextManager.SIMPLE, "25px").setOrigin(1, 0.5);
+        this.refreshText = context.textManager.createText(0, this.coinsText.y, 0).setOrigin(1, 0.5);
         this.add(this.refreshText);
         
         this.cellsLayer = context.add.container(0,this.coinsText.y + this.coinsText.displayHeight + this.margin);
