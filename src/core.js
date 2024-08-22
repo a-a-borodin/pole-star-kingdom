@@ -47,14 +47,14 @@ let scenes = [
 ];
 
 let config = {
-	type: Phaser.CANVAS,
+	type: Phaser.WEBGL,
 	parent: PARENT,
 	width: TARGET_WIDTH,
 	height: TARGET_HEIGHT,
-	pixelArt: false,
-	antialias: false,
-	autoRound: false,
-	roundPixels: false,
+	antialias:false,
+	autoRound:true,
+	pixelArt:true,
+	roundPixels:false,
 	scale: {
 		autoCenter: Phaser.Scale.CENTER_BOTH,
 		mode: Phaser.Scale.FIT,

@@ -98,7 +98,7 @@ class ShopWindow extends Phaser.GameObjects.Container {
             let equipmentType = this.equipment[Math.floor(Math.random()*this.equipment.length)];
             let keys = Object.keys(equipmentType);
             let item = equipmentType[keys[ keys.length * Math.random() << 0]];
-            console.log(item)
+        
             let newCell = new Cell(null,item.amount)
             let i = ItemsFactory.create(item,newCell);
             newCell.setItem(i);

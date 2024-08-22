@@ -64,7 +64,7 @@ const Anims = {
         Walk: {
             key: "playerWalk",
             frames: [16, 17, 18, 19],
-            frameRate: 7,
+            frameRate: 8,
             repeat: -1,
         },
         Attack: {

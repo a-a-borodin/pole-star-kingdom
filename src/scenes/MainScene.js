@@ -41,7 +41,11 @@ class MainScene extends Phaser.Scene{
         const groundTileset = groundMap.addTilesetImage("ground",Resources.Sprites.Materials.OakWoods.OakWoodsGround);
         this.groundLayer = groundMap.createLayer("ground", groundTileset, 0, -230);
         this.groundLayer.setCollisionByExclusion(-1, true);
-        
+
+        this.camera = this.add.sprite(this.spawnPointX, this.spawnPointY);
+        this.camera.speed = 4;
+        this.cameras.main.startFollow(this.camera);
+    
         this.home = this.physics.add.sprite(this.sceneWidth /2,this.groundLevel,Resources.Sprites.Materials.OakWoods.OakCoinTree).setOrigin(0.5,1);
         
         this.shop = this.physics.add.sprite(0,this.groundLevel,Resources.Sprites.Materials.OakWoods.Shop,0).setOrigin(0.5,1);
@@ -109,7 +113,7 @@ class MainScene extends Phaser.Scene{
             maxHealth:100,
             health:100,
             damage:3,
-            speed:150,
+            speed:230,
             defense:0,
             score:1000000,
             attackSpeed:1000,
@@ -123,14 +127,17 @@ class MainScene extends Phaser.Scene{
         this.player.getInventory().push(ItemsFactory.create(item,this.player.getInventory().hasSlotFor(item),this.player));
 	      
         this.player.setGround(this.groundLayer);
-        this.cameras.main.startFollow(this.player);
-    
+        
         this.waveManager.setPlayer(this.player);
         this.initColliders();
         this.initEvents();
     }
     
     update(){
+        this.camera.setPosition(this.camera.x + (this.camera.speed * (this.player.x - this.camera.x) / 100),
+                                this.camera.y + (this.camera.speed * (this.player.y - this.camera.y) / 100),
+                                );
+
         if(this.physics.overlap(this.player, this.shop)){
             EventManager.emit(EventManager.Events.SHOP_COLLIDE_START);
         }else{
@@ -175,6 +182,7 @@ class MainScene extends Phaser.Scene{
         };
         
         let openPortal = () => {
+            console.log(1);
             this.portal.working = true;
             this.portal.play(Anims.Portal.Opens.key);
             this.portal.on("animationcomplete",()=>{

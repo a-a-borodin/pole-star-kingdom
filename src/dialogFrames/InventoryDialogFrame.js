@@ -68,25 +68,23 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
     
     initEvents() {
         EventManager.on(EventManager.Events.SHOP_COLLIDE_FINISH, () => {
+            if(this.sellButton.scene)
             this.sellButton.disableInteractive();
             this.sellButton.setAlpha(0.7);
         });
         EventManager.on(EventManager.Events.SHOP_COLLIDE_START, () => {
-            if(this.sellButton.scene == undefined)
-                return;
-
+            if(this.sellButton.scene)
             this.sellButton.setInteractive();
             this.sellButton.setAlpha(1);
         });
 
         EventManager.on(EventManager.Events.HOME_COLLIDE_FINISH, () => {
+            if(this.storeButton.scene)
             this.storeButton.disableInteractive();
             this.storeButton.setAlpha(0.7);
         });
         EventManager.on(EventManager.Events.HOME_COLLIDE_START, () => {
-            if(this.storeButton.scene == undefined)
-                return;
-
+            if(this.storeButton.scene)
             this.storeButton.setInteractive();
             this.storeButton.setAlpha(1);
         });
@@ -122,7 +120,7 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
             }
         });
         this.content.add(actionButton);
-
+       
         this.sellButton = new TextButton(this.scene, actionButton.x + actionButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Sell, buttonFont, null, true).setOrigin(0, 1);
         this.sellButton.onClick(this.sellItem.bind(this));
         this.content.add(this.sellButton);

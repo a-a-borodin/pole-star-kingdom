@@ -27,17 +27,17 @@ class MainMenuScene extends Phaser.Scene{
 	    let bgType = this.randomBackground();
     
         let backgroundEmpty = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,0).setOrigin(0);
-        this.parallaxBackgroundManager.addLayer(backgroundEmpty,0);
+        this.parallaxBackgroundManager.addLayer(backgroundEmpty,0.005);
 	    let backgroundFirst = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,1).setOrigin(0);
-	    this.parallaxBackgroundManager.addLayer(backgroundFirst,0.15);
+	    this.parallaxBackgroundManager.addLayer(backgroundFirst,0.01);
 	    let backgroundSecond = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,2).setOrigin(0);
-        this.parallaxBackgroundManager.addLayer(backgroundSecond,0.3);
+        this.parallaxBackgroundManager.addLayer(backgroundSecond,0.02);
         let backgroundThird = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,3).setOrigin(0);
-        this.parallaxBackgroundManager.addLayer(backgroundThird,0.45);
+        this.parallaxBackgroundManager.addLayer(backgroundThird,0.03);
 		let backgroundFour = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,4).setOrigin(0);
-        this.parallaxBackgroundManager.addLayer(backgroundFour,0.6);
+        this.parallaxBackgroundManager.addLayer(backgroundFour,0.04);
 		let backgroundFive = this.add.tileSprite(0,0,this.sceneWidth,this.sceneHeight,bgType,5).setOrigin(0);
-        this.parallaxBackgroundManager.addLayer(backgroundFive,7.5);
+        this.parallaxBackgroundManager.addLayer(backgroundFive,0.05);
 		
 		this.parallaxBackgroundManager.startMove(1);
 		
@@ -52,7 +52,7 @@ class MainMenuScene extends Phaser.Scene{
             yoyo: true,
         });
         
-        let tapToStart = this.textManager.createText(this.sceneWidth/2, this.sceneHeight/1.5, Strings.TapToStart, TextManager.STROKE).setOrigin(0.5).setAlpha(0.7);
+        let tapToStart = this.textManager.createText(this.sceneWidth/2, this.sceneHeight/1.5, Strings.TapToStart).setOrigin(0.5).setAlpha(0.7);
         this.tweens.add({
             targets: tapToStart,
             scaleX: 0.9,
@@ -63,7 +63,7 @@ class MainMenuScene extends Phaser.Scene{
             yoyo: true,
         });
         
-        let version = this.textManager.createText(10,this.sceneHeight-10,Strings.VERSION,TextManager.STROKE).setAlpha(0.70).setOrigin(0,1);
+        let version = this.textManager.createText(10,this.sceneHeight-10,Strings.VERSION,TextManager.Style.Simple, {fontSize:TextManager.FontSize.SMALL} ).setAlpha(0.70).setOrigin(0,1);
     }
     
     randomBackground(){
