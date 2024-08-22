@@ -14,6 +14,7 @@ const Misc = {
         YELLOW: "#FFFF00",
         BLUE: "#33bee0",
         RED: "#d83e3e",
+        PINK: "#ffc0cb",
     },
 
     fancyTimeFormat : function(duration) {

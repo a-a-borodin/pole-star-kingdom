@@ -74,7 +74,7 @@ class Enemy extends Entity{
             this.scene.physics.add.overlap(this.getEnemy(), coin, (player, coin)=>{
                 if(!coin.dropped)
                     return;
-	            EventManager.emit(EventManager.Events.UPDATE_SCORE, player.getScore() + coin.getPrice());
+                player.setScore(player.getScore() + coin.getPrice());
 	            coin.destroy();
 	        });
         }

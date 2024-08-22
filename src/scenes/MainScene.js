@@ -110,15 +110,16 @@ class MainScene extends Phaser.Scene{
 	    });
 	    
         this.player = new Player(this,this.spawnPointX,this.spawnPointY,Resources.Sprites.Entities.Player.Simple,0,{
-            maxHealth:100,
-            health:100,
-            damage:3,
-            speed:230,
-            defense:0,
-            score:1000000,
-            attackSpeed:1000,
-            knockback:300,
-            healthRegen:0.1,
+            maxHealth: 100,
+            health: 100,
+            damage: 3,
+            speed: 230,
+            defense: 0,
+            score: 1000000,
+            attackSpeed: 1000,
+            knockback: 300,
+            healthRegen: 0.5,
+            merchantReputation: 1,
         });
         this.player.depth = 100;
         

@@ -155,7 +155,7 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
     sellItem() {
         this.item.setAmount(this.item.getAmount() - 1);
         this.updateText();
-        EventManager.emit(EventManager.Events.UPDATE_SCORE, this.player.getScore() + this.item.getSaleCost());
+        this.player.setScore(this.player.getScore() + this.item.getSaleCost());
         this.checkAmount();
     }
 

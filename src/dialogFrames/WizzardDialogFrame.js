@@ -103,7 +103,8 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         submit.onClick(() => {
             if (this.player.getScore() < this.currentWave.warpCost)
                 return;
-            EventManager.emit(EventManager.Events.UPDATE_SCORE, this.player.getScore() - this.currentWave.warpCost, true);
+
+            this.player.setScore(this.player.getScore() - this.currentWave.warpCost);
             this.waveManager.setWave(this.currentWave);
             this.waveManager.startWave();
             this.destroy();

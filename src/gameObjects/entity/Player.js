@@ -44,6 +44,20 @@ class Player extends Entity {
         return this.storage;
     }
 
+    setScore(score) {
+        let isNegative = score < this.getScore();
+        super.setScore(score);
+        EventManager.emit(EventManager.Events.UPDATE_SCORE, this.getScore(), isNegative);
+    }
+
+    setMerchantReputation(reputation) {
+        this.stats.merchantReputation = reputation;
+    }
+
+    getMerchantReputation() {
+        return this.stats.merchantReputation;
+    }
+
     initEvents() {
         EventManager.on(EventManager.Events.STOP_MOVE, () => {
             this.stopMove();
@@ -54,9 +68,6 @@ class Player extends Entity {
         EventManager.on(EventManager.Events.MOVE_RIGHT, () => {
             this.moveRight();
         }, this);
-        EventManager.on(EventManager.Events.UPDATE_SCORE, (newScore) => {
-            this.setScore(newScore);
-        });
     }
 }
 

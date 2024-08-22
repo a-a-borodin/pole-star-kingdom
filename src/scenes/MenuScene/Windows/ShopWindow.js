@@ -19,7 +19,7 @@ import Misc from '/src/utils/Misc.js';
 class ShopWindow extends Phaser.GameObjects.Container {
     cells = [];
     equipment = [Weapons,Chestplates,Amulets,Potions,Boots,Cloaks,Helmets,Gloves,Rings];
-    REFRESH_TIME = 60000*10;
+    REFRESH_TIME = 1000 * 10;
     currentTime;
     
     constructor(context,x,y,width,height) {
@@ -31,11 +31,11 @@ class ShopWindow extends Phaser.GameObjects.Container {
         this.currentTime = this.REFRESH_TIME;
         
         let coinsIcon = context.add.sprite(this.margin,this.margin, Resources.Sprites.UI.Icons.StatisticIcons, 0);
-        this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y, context.player.getScore()).setOrigin(0, 0.5);
+        this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y).setOrigin(0, 0.5);
         this.add(coinsIcon);
         this.add(this.coinsText);
         
-        this.refreshText = context.textManager.createText(0, this.coinsText.y, 0).setOrigin(1, 0.5);
+        this.refreshText = context.textManager.createText(0, this.coinsText.y).setOrigin(1, 0.5);
         this.add(this.refreshText);
         
         this.cellsLayer = context.add.container(0,this.coinsText.y + this.coinsText.displayHeight + this.margin);
@@ -45,17 +45,17 @@ class ShopWindow extends Phaser.GameObjects.Container {
     
         this.refreshTimer = this.scene.time.addEvent({
             delay: 1000,
-            callback: ()=>{
-                this.currentTime -= 1000;
-                this.refreshText.setText(Misc.fancyTimeFormat(this.currentTime/1000));
-                
+            callback: () => {
                 if(this.currentTime <= 0){
                     this.currentTime = this.REFRESH_TIME;
                     this.updateGoods();
+                }else{
+                    this.currentTime -= 1000;
                 }
             },
             callbackScope: context,
             repeat: true,
+            loop: true,
         });
         
         this.initCells();
@@ -94,26 +94,34 @@ class ShopWindow extends Phaser.GameObjects.Container {
     }
     
     generateGoods() {
-        for (let cell in this.cells) {
+        let rep = this.context.player.getMerchantReputation();
+        let availableCells = Math.trunc(rep);
+
+        for(let ind = 0; ind < availableCells; ind++) {
+            if(ind > this.cells.length) 
+                return;
+            
             let equipmentType = this.equipment[Math.floor(Math.random()*this.equipment.length)];
             let keys = Object.keys(equipmentType);
             let item = equipmentType[keys[ keys.length * Math.random() << 0]];
-        
+
             let newCell = new Cell(null,item.amount)
             let i = ItemsFactory.create(item,newCell);
             newCell.setItem(i);
-            this.cells[cell].setCell(newCell);
+            this.cells[ind].setCell(newCell);
         }
     }
     
     updateGoods() {
-        
+        this.generateGoods();
     }
     
     update() {
         for (let cell in this.cells) {
             this.cells[cell].setCell(this.cells[cell].getCell());
         }
+        this.coinsText.setText(this.context.player.getScore());
+        this.refreshText.setText(Misc.fancyTimeFormat(this.currentTime/1000));
     }
 }
 

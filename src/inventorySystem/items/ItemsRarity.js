@@ -5,7 +5,8 @@ const ItemsRarity = {
     Common:0.7,
     Rare:0.3,
     Epic:0.09,
-    Legendary:0.01
+    Legendary:0.01,
+    Developer:0.0,
 };
 
 ItemsRarity.getColorByRarity = function(rarity) {
@@ -20,6 +21,8 @@ ItemsRarity.getColorByRarity = function(rarity) {
             return Misc.Colors.PINK;
         case ItemsRarity.Legendary:
             return Misc.Colors.RED;
+        case ItemsRarity.Developer:
+            return Misc.Colors.PINK;
     }
 }
 
