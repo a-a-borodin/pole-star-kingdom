@@ -6,28 +6,28 @@ const Waves = new Map([
     [1, {
         enemy:Enemies.SlimeGreen,
         enemiesAmount:10,
-        description:"At this wave you can fill your inventory with different potions. Your enemies - green slimes. They are slow, and don't have armor!",
+        description:"Your enemy - green slime. They are slow and don't have any armor! *At this wave you can fill your inventory with different potions",
         title:"Green Slime's Wave",
     }],
     
     [2, {
         enemy:Enemies.WolfBlack,
         enemiesAmount:6,
-        description:"Black wolfs are dangerous enemies, from wild forests, they are fast, have some defense and lot of damage. You can get some equipment at this wave.",
+        description:"The black wolf is dangerous enemy from wild forests. They are fast, have some armor and a lot of damage. Beware of razor-sharp fangs! *You can get some equipment at this wave",
         title:"Black Wolf's Wave"
     }],
     
     [3, {
         enemy:Enemies.WolfWhite,
         enemiesAmount:6,
-        description:"White wolf is parent of black wolf. White wolfes have more damage,speed and armor. You can get some equipment at this wave.",
+        description:"The white wolf is the parent of the black wolf. White wolfes have more damage, speed and armor. *You can get some equipment at this wave",
         title: "White Wolf's Wave"
     }],
     
     [4, {
         enemy:Enemies.AlienBlue,
         enemiesAmount:4,
-        description:"Enemy from other planet!  Blue aliens have high damage and armor, but attacks cooldown is slow. You can get some equipment at this wave.",
+        description:"An enemy from another planet! Blue aliens have high damage and armor, but their attack's cooldown is very slow. *You can get some equipment at this wave",
         title:"Blue Alien's Wave",
     }],
 ]);
