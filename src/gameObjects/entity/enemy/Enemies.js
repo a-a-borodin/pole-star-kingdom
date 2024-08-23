@@ -13,9 +13,9 @@ import Rings from "/src/inventorySystem/items/equipment/ring/Rings.js";
 
 const Enemies = {
     WolfBlack:{
-        health:15,
-        maxHealth:15,
-        damage:4,
+        health:7,
+        maxHealth:7,
+        damage:0.8,
         speed:110,
         defense:20,
         attackSpeed:1500,
@@ -37,9 +37,9 @@ const Enemies = {
     },
     
     WolfWhite:{
-        health:20,
-        maxHealth:20,
-        damage:7,
+        health:12,
+        maxHealth:12,
+        damage:1.5,
         speed:140,
         defense:30,
         attackSpeed:1000,
@@ -62,9 +62,9 @@ const Enemies = {
     },
     
     SlimeGreen:{
-        health:10,
-        maxHealth:10,
-        damage:2,
+        health:4,
+        maxHealth:4,
+        damage:0.4,
         speed:70,
         defense:0,
         attackSpeed:1900,
@@ -83,9 +83,9 @@ const Enemies = {
     },
     
     AlienBlue:{
-        health:25,
-        maxHealth:25,
-        damage:9,
+        health:20,
+        maxHealth:20,
+        damage: 2,
         speed:90,
         defense:35,
         attackSpeed:1000,

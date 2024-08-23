@@ -37,6 +37,8 @@ class TextManager {
                 textObj.setFontSize(config.fontSize);
             if (config.strokeColor && config.strokeThickness)
                 textObj.setStroke(config.strokeColor, config.strokeThickness);
+            if (config.fontColor) 
+                textObj.setColor(config.fontColor);
         }
 
         return textObj;
