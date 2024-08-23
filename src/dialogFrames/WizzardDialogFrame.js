@@ -25,7 +25,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
 
         let wrapper = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.sceneWidth, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
             .setOrigin(0)
-            .setAlpha(0.8)
+            .setAlpha(0.85)
             .setInteractive();
         wrapper.on("pointerdown", () => {
             this.destroy();
@@ -40,14 +40,17 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
             .setSize(container.width, container.height / 5);
         container.add(headerContent);
 
-        let headerBackground = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, headerContent.width, headerContent.height, Resources.Sprites.UI.Panels.PanelBlack)
-            .setOrigin(0)
-            .setInteractive();
-        headerContent.add(headerBackground);
+       // let headerBackground = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, headerContent.width, headerContent.height, Resources.Sprites.UI.Panels.PanelBlack)
+         //   .setOrigin(0)
+           // .setInteractive();
+        //headerContent.add(headerBackground);
 
-        this.headerText = this.textManager.createText(headerContent.x + this.margin, headerContent.y + headerContent.height / 2, Strings.Wave + " " + this.waveID, TextManager.STROKE)
-            .setOrigin(0, 0.5);
+        this.headerText = this.textManager.createText(headerContent.x + headerContent.width / 2, headerContent.y + headerContent.height / 2, Strings.Wave + " " + this.waveID, TextManager.Style.STROKE, {fontSize:TextManager.FontSize.BIG})
+            .setOrigin(0.5, 0.5);
+        this.headerTextDash = this.textManager.createText(headerContent.x + headerContent.width / 2, headerContent.y + headerContent.height / 2 + this.headerText.height / 2 + this.margin, "________________________", TextManager.Style.STROKE, {fontSize:TextManager.FontSize.SMALL})
+            .setOrigin(0.5, 1);
         headerContent.add(this.headerText);
+        headerContent.add(this.headerTextDash);
 
 
         let content = new Phaser.GameObjects.Container(this.scene, 0, headerContent.y + headerContent.displayHeight + this.margin)
@@ -56,6 +59,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
 
         let background = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, content.width, content.height, Resources.Sprites.UI.Panels.PanelBlack)
             .setOrigin(0)
+            .setAlpha(0)
             .setInteractive();
         content.add(background);
 
@@ -63,12 +67,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
             .setOrigin(0);
         content.add(this.waveIcon);
 
-        let coinsIcon = new Phaser.GameObjects.Sprite(scene, this.margin, this.waveIcon.y + this.waveIcon.displayHeight + this.margin, Resources.Sprites.UI.Icons.StatisticIcons, 0)
-            .setOrigin(0);
-        this.costText = this.textManager.createText(coinsIcon.x + coinsIcon.displayWidth + this.margin, coinsIcon.y, this.currentWave.warpCost)
-            .setOrigin(0);
-        content.add(coinsIcon);
-        content.add(this.costText);
+        
 
         this.waveTitle = this.textManager.createText(this.waveIcon.x + this.waveIcon.displayWidth + this.margin, this.margin, this.currentWave.title, TextManager.STROKE)
             .setOrigin(0);
@@ -80,7 +79,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         this.description.setWordWrapWidth(this.description.width, true);
         content.add(this.description);
 
-        this.updateWaveInfo();
+     
         
         let selectWaveContainer = new Phaser.GameObjects.Container(this.scene, content.width / 4, content.height - this.margin);
         selectWaveContainer.width = content.width - (content.width / 4) * 2;
@@ -97,7 +96,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         });
         selectWaveContainer.add(leftArrow);
 
-        let submit = new TextButton(this.scene, selectWaveContainer.width / 2, -leftArrow.displayHeight / 2, Strings.Battle, TextManager.Style.STROKE, null, true)
+        let submit = new TextButton(this.scene, leftArrow.x + leftArrow.displayWidth + this.margin, -leftArrow.displayHeight / 2, Strings.Battle, TextManager.Style.STROKE, null, true)
             .setFontSize("35px")
             .setOrigin(0.5);
         submit.onClick(() => {
@@ -121,8 +120,16 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
             this.updateWaveInfo();
         });
         selectWaveContainer.add(rightArrow);
+
+        let coinsIcon = new Phaser.GameObjects.Sprite(this.scene, submit.x + submit.displayWidth, submit.y + submit.displayHeight / 2, Resources.Sprites.UI.Icons.StatisticIcons, 0)
+            .setOrigin(0.5);
+        this.costText = this.textManager.createText(coinsIcon.x + coinsIcon.displayWidth + this.margin, coinsIcon.y, this.currentWave.warpCost)
+            .setOrigin(0.5);
+        selectWaveContainer.add(coinsIcon);
+        selectWaveContainer.add(this.costText);
         
         scene.add.existing(this);
+        this.updateWaveInfo();
     }
 
     updateWaveInfo() {

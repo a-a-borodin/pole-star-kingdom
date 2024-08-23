@@ -360,6 +360,8 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
             this.flipX = false;
         }
 
+        this.scene.cameras.main.shake(115, 0.0027);
+    
         if (this._anims.attack != undefined) {
             this.stopPlayingAnims = true;
             this.play(this._anims.attack.key, true);

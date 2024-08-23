@@ -14,12 +14,13 @@ class MainScene extends Phaser.Scene{
     }
     
     init(){
-        this.sceneWidth = 75*48;
+        this.sceneWidth = 50*48;
 		this.sceneHeight = this.cameras.main.height;			
 		this.input.addPointer(Misc.MAX_TOUCH_COUNT);
 		this.groundHeight = 93;
 		this.groundLevel = this.sceneHeight - this.groundHeight;
 	    this.spawnPointX = this.sceneWidth / 2;
+        console.log(this.sceneWidth);
 	    this.spawnPointY = this.groundLevel - 32;
 	    this.cameras.main.flash(Misc.FLASH_DURATION);
 	    this.cameras.main.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
