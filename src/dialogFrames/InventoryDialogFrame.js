@@ -23,15 +23,17 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         this.textManager = new TextManager(scene);
         this.player = scene.scene.get(Scenes.MAIN).player;
 
-        let wrapper = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.sceneWidth, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack).setOrigin(0).setInteractive();
-        wrapper.setAlpha(0.8);
+        let wrapper = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.sceneWidth, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
+            .setOrigin(0)
+            .setAlpha(0.6)
+            .setInteractive();
         this.add(wrapper);
 
         let container = new Phaser.GameObjects.Container(this.scene, this.sceneWidth / 2 - this.width / 2, this.sceneHeight / 2 - this.height / 2);
         this.add(container);
 
         let background = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.width, this.height, Resources.Sprites.UI.Panels.PanelBlack).setOrigin(0);
-        background.setAlpha(1);
+        background.setAlpha(0.85);
         container.add(background);
 
         this.content = new Phaser.GameObjects.Container(this.scene, PADDING, PADDING);

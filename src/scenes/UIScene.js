@@ -60,7 +60,7 @@ class UIScene extends Phaser.Scene {
         this.waveTimerText = this.textManager.createText(this.waveIcon.x + this.waveIcon.displayWidth/2 + 10, 15, "", TextManager.STROKE).setOrigin(0, 0.25).setAlpha(0);
         this.killsCountText = this.textManager.createText(this.waveIcon.x, this.waveTimerText.y + this.waveTimerText.displayHeight/2 + 10, "", TextManager.STROKE).setOrigin(0.5, 0).setAlpha(0);
 
-        this.logoText = this.textManager.createText(this.sceneWidth/2, this.sceneHeight/2, "").setOrigin(0.5).setAlpha(0);
+        this.logoText = this.textManager.createText(this.sceneWidth/2, this.sceneHeight/2, "", TextManager.Style.STROKE).setOrigin(0.5).setAlpha(0);
         this.logoText.setFontSize("80px");
 
         this.scoreText = this.textManager.createText(this.sceneWidth, 15, 0, TextManager.Style.STROKE).setOrigin(0).setAlpha(0.7);

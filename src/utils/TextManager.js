@@ -15,7 +15,7 @@ class TextManager {
                 fontSize: TextManager.FontSize.NORMAL,
                 color: Misc.Colors.WHITE,
                 fontFamily: Misc.FontFamily.PixelFont,
-                resolution: 20,
+                resolution: 5,
             },
             STROKE: {
                 fontSize: TextManager.FontSize.NORMAL,
@@ -23,7 +23,7 @@ class TextManager {
                 fontFamily: Misc.FontFamily.PixelFont,
                 stroke: Misc.Colors.DARK,
                 strokeThickness: 7,
-                resolution: 20,
+                resolution: 5,
             }
         };
 

@@ -97,6 +97,7 @@ const Resources = {
         Materials: {
             OakWoods: {
                 OakWoodsGround: "oakWoodsGround",
+                VillageProps: "villageProps",
                 OakCoinTree: "oakCoinTree",
                 Shop: "shop",
                 PortalPurple: "portalPurple",

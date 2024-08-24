@@ -2,6 +2,7 @@ import CellContainer from '/src/inventorySystem/CellContainer.js';
 import InventoryDialogFrame from '/src/dialogFrames/InventoryDialogFrame.js';
 import Strings from '/src/constants/Strings.js';
 import Resources from '/src/constants/Resources.js';
+import TextManager from '/src/utils/TextManager.js';
 
 class BagWindow extends Phaser.GameObjects.Container {
     cells = [];
@@ -11,13 +12,14 @@ class BagWindow extends Phaser.GameObjects.Container {
         super(context,x,y);
         
         this.context = context;
+        this.textManager = new TextManager(context);
         this.margin = 10;
         this.setSize(width,height);
         
         this.cellsLayer = context.add.container(0, 0);
         this.cellsLayer.setSize(this.width / 2, this.height / 1.5);
         this.add(this.cellsLayer);
-     
+
         let coinsIcon = context.add.sprite(this.margin, this.cellsLayer.y + this.cellsLayer.height, Resources.Sprites.UI.Icons.StatisticIcons, 0);
         this.coinsText = context.textManager.createText(coinsIcon.x + coinsIcon.displayWidth / 1.5, coinsIcon.y, context.player.getScore()).setOrigin(0, 0.5);
         this.cellsLayer.add(coinsIcon);
@@ -27,7 +29,7 @@ class BagWindow extends Phaser.GameObjects.Container {
         this.equipmentLayer.setSize(this.width - this.equipmentLayer.x, this.height / 1.5);
         this.add(this.equipmentLayer);
         this.initCells();
-        
+
         this.statsLayer = context.add.container(this.equipmentLayer.x, this.equipmentLayer.y + this.equipmentLayer.height);
         this.statsLayer.setSize(this.width - this.statsLayer.x, this.height / 1.5);
         this.add(this.statsLayer);

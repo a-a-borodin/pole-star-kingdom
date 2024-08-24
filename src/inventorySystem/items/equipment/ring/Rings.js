@@ -13,8 +13,8 @@ const Rings = {
         isEquipable:true,
         isEquiped:false,
         isStoraged:false,
-        cost:800,
-        saleCost:450,
+        cost:260,
+        saleCost:65,
         rarity:ItemsRarity.Rare,
         features:{
             healthIncrease:5,

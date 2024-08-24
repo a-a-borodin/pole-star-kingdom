@@ -82,7 +82,11 @@ class MenuScene extends Phaser.Scene {
         let buttonFont = TextManager.Style.STROKE;
         buttonFont.fontSize = "35px";
 
-        let resumeButton = new TextButton(this, this.margin, this.buttonsLayer.height / 4, Strings.Resume, buttonFont, null, true).setOrigin(0);
+        let delem = this.textManager.createText(0, this.buttonsLayer.height / 4 - this.margin, "──────────── ▪ ▪ ▪", TextManager.Style.STROKE, {fontSize:TextManager.FontSize.SMALL})
+            .setOrigin(0);
+        this.buttonsLayer.add(delem);
+
+        let resumeButton = new TextButton(this, this.margin, delem.y + delem.displayHeight + this.margin, Strings.Resume, buttonFont, null, true).setOrigin(0);
         resumeButton.onClick(() => {
             this.scene.switch(Scenes.UI);
         });

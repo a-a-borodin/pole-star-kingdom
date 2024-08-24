@@ -10,11 +10,11 @@ const PotionsList = {
     WeakHealPotion:{
         title:PotionTitles.WeakHealPotion,
         type:ItemTypes.Potion,
-        cost:25,
-        saleCost:10,
+        cost:5,
+        saleCost:3,
         rarity:ItemsRarity.Primary,
         features:{
-            healPower:30,
+            healPower:3,
         },
         icon:{
             texture:Resources.Sprites.Items.Icons.PotionIcons,

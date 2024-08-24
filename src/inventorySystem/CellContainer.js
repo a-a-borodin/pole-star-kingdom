@@ -11,6 +11,7 @@ class CellContainer extends Phaser.GameObjects.Container{
         this.cell = cell;
         this.showAmount = showAmount;
         this.background = new Phaser.GameObjects.Sprite(this.scene,0,0,Resources.Sprites.UI.Panels.PanelBlack).setInteractive().setOrigin(0);
+        this.background.setAlpha(0.8);
         this.background.setDisplaySize(this.width,this.height);
         this.add(this.background);
         this.vanishBackground = new Phaser.GameObjects.Sprite(this.scene, padding/2, padding/2, vanishBackground).setInteractive().setOrigin(0);

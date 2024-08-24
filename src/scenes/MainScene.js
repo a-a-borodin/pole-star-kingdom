@@ -8,6 +8,8 @@ import Anims from '/src/constants/Anims.js';
 import ItemsFactory from '/src/inventorySystem/items/ItemsFactory.js';
 import Weapons from "/src/inventorySystem/items/equipment/weapon/Weapons.js";
 
+import OutlineSpriteFX from '/src/utils/OutlineSpriteFX.js';
+
 class MainScene extends Phaser.Scene{
     constructor(config){
         super(config);
@@ -27,6 +29,7 @@ class MainScene extends Phaser.Scene{
 	    this.cameras.main.pan(this.sceneWidth /2, 0, 0);
 	    this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
 	    this.transition = true;
+        this.postFxPlugin = this.plugins.get('rexoutlinepipelineplugin');
    }
     
     create(){
@@ -40,7 +43,10 @@ class MainScene extends Phaser.Scene{
         
 		const groundMap = this.make.tilemap({ key: Resources.Json.Maps.MainGroundMap });
         const groundTileset = groundMap.addTilesetImage("ground",Resources.Sprites.Materials.OakWoods.OakWoodsGround);
+        const propsTileset = groundMap.addTilesetImage("villageProps",Resources.Sprites.Materials.OakWoods.VillageProps);
         this.groundLayer = groundMap.createLayer("ground", groundTileset, 0, -230);
+        groundMap.createLayer("props", propsTileset, 0, -230);
+        groundMap.createLayer("props2", propsTileset, 0, -230);
         this.groundLayer.setCollisionByExclusion(-1, true);
 
         this.camera = this.add.sprite(this.spawnPointX, this.spawnPointY);
@@ -134,7 +140,7 @@ class MainScene extends Phaser.Scene{
         this.initColliders();
         this.initEvents();
     }
-    
+
     update(){
         this.camera.setPosition(this.camera.x + (this.camera.speed * (this.player.x - this.camera.x) / 100),
                                 this.camera.y + (this.camera.speed * (this.player.y - this.camera.y) / 100),
@@ -142,27 +148,46 @@ class MainScene extends Phaser.Scene{
 
         if(this.physics.overlap(this.player, this.shop)){
             EventManager.emit(EventManager.Events.SHOP_COLLIDE_START);
+            if(this.postFxPlugin.get(this.shop).length == 0)
+                this.postFxPlugin.add(this.shop, {
+                    thickness: 2,
+                    outlineColor: 0xffffff
+                });
         }else{
             EventManager.emit(EventManager.Events.SHOP_COLLIDE_FINISH);
+            this.postFxPlugin.remove(this.shop);
         }
 
         if(this.physics.overlap(this.player,this.home)){
             EventManager.emit(EventManager.Events.HOME_COLLIDE_START);
+            if(this.postFxPlugin.get(this.home).length == 0)
+                this.postFxPlugin.add(this.home, {
+                    thickness: 2,
+                    outlineColor: 0xffffff
+                });
         }else{
             EventManager.emit(EventManager.Events.HOME_COLLIDE_FINISH);
+            this.postFxPlugin.remove(this.home);
         }
 
         if(this.physics.overlap(this.player,this.wizzard)) {
             if(!this.waveManager.getWave().isStarted){
                 this.wizzard.setInteractive();
                 this.wizzard.dialog.setAlpha(1);
+                if(this.postFxPlugin.get(this.wizzard).length == 0)
+                    this.postFxPlugin.add(this.wizzard, {
+                        thickness: 2,
+                        outlineColor: 0xffffff
+                    });
             }else{
                 this.wizzard.dialog.setAlpha(0);
                 this.wizzard.disableInteractive();
+                this.postFxPlugin.remove(this.wizzard);
             }
         }else{
             this.wizzard.dialog.setAlpha(0);
             this.wizzard.disableInteractive();
+            this.postFxPlugin.remove(this.wizzard);
         }
     }
     

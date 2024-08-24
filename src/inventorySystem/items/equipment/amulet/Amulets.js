@@ -13,11 +13,11 @@ const Amulets = {
         isEquipable:true,
         isEquiped:false,
         isStoraged:false,
-        cost:600,
-        saleCost:400,
+        cost:250,
+        saleCost:50,
         rarity:ItemsRarity.Rare,
         features:{
-            healthIncrease:10,
+            healthIncrease:1,
         },
         icon:{
             texture:Resources.Sprites.Items.Icons.AmuletIcons,

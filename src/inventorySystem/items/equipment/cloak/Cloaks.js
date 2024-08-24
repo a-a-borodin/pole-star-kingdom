@@ -13,11 +13,11 @@ const Cloaks = {
         isEquipable:true,
         isEquiped:false,
         isStoraged:false,
-        cost:700,
-        saleCost:450,
+        cost:300,
+        saleCost:70,
         rarity:ItemsRarity.Rare,
         features:{
-            healthIncrease:15,
+            healthIncrease:1,
             speedIncrease:35,
         },
         icon:{

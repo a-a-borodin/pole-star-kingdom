@@ -13,8 +13,8 @@ const Chestplates = {
         isEquipable:true,
         isEquiped:false,
         isStoraged:false,
-        cost:400,
-        saleCost:350,
+        cost:60,
+        saleCost:15,
         rarity:ItemsRarity.Common,
         features:{
             defenseIncrease:2,

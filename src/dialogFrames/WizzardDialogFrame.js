@@ -12,8 +12,8 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         this.scene = scene;
         this.sceneHeight = scene.game.config.height;
         this.sceneWidth = scene.game.config.width;
-        this.width = this.sceneWidth / 1.5;
-        this.height = this.sceneHeight / 1.7;
+        this.width = this.sceneWidth / 1.9;
+        this.height = this.sceneHeight / 1.6;
         this.textManager = new TextManager(scene);
         this.margin = 15;
         this.padding = 15;
@@ -22,7 +22,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         this.waveID = this.waveManager.getWave().id;
         this.currentWave = Waves.get(this.waveID);
 
-        let wrapper = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.sceneWidth, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
+        let wrapper = new Phaser.GameObjects.TileSprite(this.scene, this.sceneWidth / 2 - this.width / 2, 0, this.width, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
             .setOrigin(0)
             .setAlpha(0.8)
             .setInteractive();
@@ -42,7 +42,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
 
         this.headerText = this.textManager.createText(headerContent.x + headerContent.width / 2, headerContent.y + headerContent.height / 2," ", TextManager.Style.STROKE, {fontSize:TextManager.FontSize.BIG})
             .setOrigin(0.5, 0.5);
-        this.headerTextDash = this.textManager.createText(headerContent.x + headerContent.width / 2, headerContent.y + headerContent.height / 2 + this.headerText.height / 2 + this.margin, "________________________", TextManager.Style.STROKE, {fontSize:TextManager.FontSize.SMALL})
+        this.headerTextDash = this.textManager.createText(headerContent.x + headerContent.width / 2, headerContent.y + headerContent.height / 2 + this.headerText.height / 2 + this.margin * 2, "▪ ▪ ▪ ────────────────────── ▪ ▪ ▪", TextManager.Style.STROKE, {fontSize:TextManager.FontSize.SMALL})
             .setOrigin(0.5, 1);
         headerContent.add(this.headerText);
         headerContent.add(this.headerTextDash);
@@ -70,7 +70,6 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         this.notice.width = content.width - this.notice.x - this.margin;
         this.notice.setWordWrapWidth(this.notice.width, true);
         content.add(this.notice);
-
    
         let selectWaveContainer = new Phaser.GameObjects.Container(this.scene, content.width / 4, content.height - this.margin);
         selectWaveContainer.width = content.width - (content.width / 4) * 2;

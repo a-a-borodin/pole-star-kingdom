@@ -32,6 +32,8 @@ class PreloaderScene extends Phaser.Scene {
             backgroundColor.destroy();
         });
         
+        this.load.plugin('rexoutlinepipelineplugin', '/src/utils/rexoutlinepipelineplugin.min.js', true);
+        
         this.load.tilemapTiledJSON(Resources.Json.Maps.MainGroundMap, 'assets/json/maps/mainGroundMap.json');
         
 	    this.load.spritesheet(Resources.Sprites.Backgrounds.Menu.Parallax.GrassMountain, 'assets/sprites/backgrounds/menu/parallax/BackgroundGrassMountainParallax.png',{frameWidth:960,frameHeight:540});
@@ -81,6 +83,7 @@ class PreloaderScene extends Phaser.Scene {
         this.load.spritesheet(Resources.Sprites.UI.ProgressBars.YellowSimple,'assets/sprites/ui/progressBars/yellowProgressBarSimple.png',{frameWidth:10,frameHeight:10});
 	    
 	    this.load.image(Resources.Sprites.Materials.OakWoods.OakWoodsGround,'assets/sprites/materials/oakWoods/oakWoodsGround.png');
+        this.load.image(Resources.Sprites.Materials.OakWoods.VillageProps,'assets/sprites/materials/oakWoods/villageProps.png');
 	    this.load.image(Resources.Sprites.Materials.OakWoods.OakCoinTree,'assets/sprites/materials/oakWoods/oakCoinTree.png');
 	    this.load.spritesheet(Resources.Sprites.Materials.OakWoods.Shop,'assets/sprites/materials/oakWoods/shop.png',{frameWidth:295,frameHeight:320});
 	    this.load.spritesheet(Resources.Sprites.Materials.OakWoods.PortalPurple,'assets/sprites/materials/oakWoods/portalPurple.png',{frameWidth:256,frameHeight:256});

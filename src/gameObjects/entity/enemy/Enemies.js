@@ -20,7 +20,7 @@ const Enemies = {
         defense:20,
         attackSpeed:1500,
         knockback:100,
-        coinsAmount:8,
+        coinsAmount:2,
         inventory:[
             Weapons.WoodenSword,
             Gloves.WoodenGloves,
@@ -44,7 +44,7 @@ const Enemies = {
         defense:30,
         attackSpeed:1000,
         knockback:150,
-        coinsAmount:13,
+        coinsAmount:4,
         inventory:[
             Rings.WoodenRing,
             Chestplates.WoodenChestplate,
@@ -69,7 +69,7 @@ const Enemies = {
         defense:0,
         attackSpeed:1900,
         knockback:100,
-        coinsAmount:5,
+        coinsAmount:1,
         inventory:[
             Potions.WeakHealPotion,
         ],
@@ -90,7 +90,7 @@ const Enemies = {
         defense:35,
         attackSpeed:1000,
         knockback:200,
-        coinsAmount:18,
+        coinsAmount:6,
         inventory:[
             Chestplates.WoodenChestplate,
             Amulets.WoodenAmulet,

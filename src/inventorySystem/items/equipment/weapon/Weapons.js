@@ -13,8 +13,8 @@ const Weapons = {
         isEquipable:true,
         isEquiped:false,
         isStoraged:false,
-        cost:350,
-        saleCost:225,
+        cost:100,
+        saleCost:15,
         rarity:ItemsRarity.Common,
         features:{
             damageIncrease:1,
@@ -33,14 +33,13 @@ const Weapons = {
         isEquipable:true,
         isEquiped:false,
         isStoraged:false,
-        cost:1000000000,
-        saleCost:100000,
+        cost:0,
+        saleCost:0,
         rarity:ItemsRarity.Developer,
         features:{
-            damageIncrease:1,
             defenseIncrease:9999,
             healthRegenIncrease:9999,
-            speedIncrease:90,
+            speedIncrease:100,
             attackSpeed:250,
         },
         icon:{
