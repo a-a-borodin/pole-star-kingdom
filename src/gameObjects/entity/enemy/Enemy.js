@@ -79,6 +79,19 @@ class Enemy extends Entity{
 	        });
         }
     }
+
+    _onAttacked() {
+        super._onAttacked();
+        this.setTintFill(0xffffff);
+        this.scene.time.addEvent({
+            delay: 140,
+            callback: () => {
+                this.clearTint();
+            },
+            callbackScope: this,
+        });
+        
+    }
 }
 
 export default Enemy;

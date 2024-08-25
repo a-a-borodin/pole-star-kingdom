@@ -21,7 +21,7 @@ class MainScene extends Phaser.Scene{
 		this.input.addPointer(Misc.MAX_TOUCH_COUNT);
 		this.groundHeight = 93;
 		this.groundLevel = this.sceneHeight - this.groundHeight;
-	    this.spawnPointX = this.sceneWidth / 2;
+	    this.spawnPointX = (this.sceneWidth / 2) + 200;
         console.log(this.sceneWidth);
 	    this.spawnPointY = this.groundLevel - 32;
 	    this.cameras.main.flash(Misc.FLASH_DURATION);
@@ -122,11 +122,11 @@ class MainScene extends Phaser.Scene{
             damage: 1,
             speed: 230,
             defense: 0,
-            score: 1000,
+            score: 10000,
             attackSpeed: 1000,
             knockback: 300,
             healthRegen: 0.5,
-            merchantReputation: 1,
+            merchantReputation: 10,
         });
         this.player.depth = 100;
         

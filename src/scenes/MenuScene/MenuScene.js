@@ -95,10 +95,16 @@ class MenuScene extends Phaser.Scene {
         let settingsButton = new TextButton(this, this.margin, resumeButton.y + resumeButton.displayHeight + this.margin, Strings.Settings, buttonFont, null, true).setOrigin(0);
         settingsButton.onClick(() => {});
         this.buttonsLayer.add(settingsButton);
+        settingsButton
+            .disableInteractive()
+            .setAlpha(0.4);
 
         let achievementsButton = new TextButton(this, this.margin, settingsButton.y + settingsButton.displayHeight + this.margin, Strings.Achievements, buttonFont, null, true).setOrigin(0);
         achievementsButton.onClick(() => {});
         this.buttonsLayer.add(achievementsButton);
+        achievementsButton
+            .setAlpha(0.4)
+            .disableInteractive();
     }
 
     initInventoryButtons() {
@@ -157,6 +163,8 @@ class MenuScene extends Phaser.Scene {
         this.upgradesButton.button = true;
         this.upgradesButton.setDisplaySize(this.inventoryButtonsLayer.height, this.inventoryButtonsLayer.height);
         this.inventoryButtonsLayer.add(this.upgradesButton);
+        this.upgradesButton.disableInteractive();
+        this.upgradesButton.setAlpha(0.4);
     }
 
     initEvents() {
@@ -178,8 +186,8 @@ class MenuScene extends Phaser.Scene {
         });
 
         EventManager.on(EventManager.Events.HOME_COLLIDE_START, () => {
-            this.upgradesButton.setInteractive();
-            this.upgradesButton.setAlpha(1);
+            //this.upgradesButton.setInteractive();
+            //this.upgradesButton.setAlpha(1);
             
             this.storageButton.setInteractive();
             this.storageButton.setAlpha(1);

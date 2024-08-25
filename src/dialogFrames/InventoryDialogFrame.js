@@ -18,22 +18,27 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         this.item = cell.getItem();
         this.sceneHeight = scene.game.config.height;
         this.sceneWidth = scene.game.config.width;
-        this.width = this.sceneWidth / 2;
-        this.height = this.sceneHeight / 2;
+        this.width = this.sceneWidth / 2.3;
+        this.height = this.sceneHeight / 2.2;
         this.textManager = new TextManager(scene);
         this.player = scene.scene.get(Scenes.MAIN).player;
 
         let wrapper = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.sceneWidth, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
             .setOrigin(0)
             .setAlpha(0.6)
-            .setInteractive();
+            .setInteractive()
+            .on("pointerup", () => {
+                this.destroy();
+            })
         this.add(wrapper);
 
         let container = new Phaser.GameObjects.Container(this.scene, this.sceneWidth / 2 - this.width / 2, this.sceneHeight / 2 - this.height / 2);
         this.add(container);
 
-        let background = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.width, this.height, Resources.Sprites.UI.Panels.PanelBlack).setOrigin(0);
-        background.setAlpha(0.85);
+        let background = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.width, this.height, Resources.Sprites.UI.Panels.PanelBlack)
+            .setOrigin(0)
+            .setInteractive()
+            .setAlpha(0.85);
         container.add(background);
 
         this.content = new Phaser.GameObjects.Container(this.scene, PADDING, PADDING);
@@ -72,80 +77,90 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         EventManager.on(EventManager.Events.SHOP_COLLIDE_FINISH, () => {
             if(this.sellButton.scene)
             this.sellButton.disableInteractive();
-            this.sellButton.setAlpha(0.7);
+            this.sellButton.setAlpha(0);
+            this.positionButtons();
         });
         EventManager.on(EventManager.Events.SHOP_COLLIDE_START, () => {
             if(this.sellButton.scene)
             this.sellButton.setInteractive();
             this.sellButton.setAlpha(1);
+            this.positionButtons();
         });
 
         EventManager.on(EventManager.Events.HOME_COLLIDE_FINISH, () => {
             if(this.storeButton.scene)
             this.storeButton.disableInteractive();
-            this.storeButton.setAlpha(0.7);
+            this.storeButton.setAlpha(0);
+            this.positionButtons();
         });
         EventManager.on(EventManager.Events.HOME_COLLIDE_START, () => {
             if(this.storeButton.scene)
             this.storeButton.setInteractive();
             this.storeButton.setAlpha(1);
+            this.positionButtons();
         });
     }
 
     initButtons() {
-        let buttonFont = TextManager.Style.STROKE;
-
-        let actionText;
+        let actionFrame;
         if (this.item.isEquipable) {
             if (this.item.isEquiped) {
-                actionText = Strings.Remove;
+                actionFrame = 76;
             } else {
-                actionText = Strings.Equip;
+                actionFrame = 66;
             }
         } else {
-            actionText = Strings.Use;
+            actionFrame =  174;
         }
 
-        let storeText;
+        let storeFrame;
         if (this.item.isStored) {
-            storeText = Strings.Get;
+            storeFrame = 82;
         } else {
-            storeText = Strings.Store;
+            storeFrame = 81;
         }
+        let sellFrame = 91;
+        let deleteFrame = 176;
 
-        let actionButton = new TextButton(this.scene, 0, this.height - MARGIN * 2, actionText, buttonFont, null, true).setOrigin(0, 1);
-        actionButton.onClick(() => {
+        this.actionButton = new Phaser.GameObjects.Image(this.scene, 0, this.height - MARGIN * 2, Resources.Sprites.UI.Icons.MiniActionButtonsIcons, actionFrame)
+            .setOrigin(0, 1)
+            .setInteractive();
+        this.actionButton.on("pointerup", () => {
             if (this.item.isEquipable) {
                 this.equipItem();
             } else {
                 this.useItem();
             }
         });
-        this.content.add(actionButton);
+        this.actionButton.setScale(1.1);
+        this.content.add(this.actionButton);
        
-        this.sellButton = new TextButton(this.scene, actionButton.x + actionButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Sell, buttonFont, null, true).setOrigin(0, 1);
-        this.sellButton.onClick(this.sellItem.bind(this));
+        this.sellButton = new Phaser.GameObjects.Image(this.scene, 0, this.height - MARGIN * 2, Resources.Sprites.UI.Icons.MiniActionButtonsIcons, sellFrame)
+            .setOrigin(0, 1)
+            .setInteractive();
+        this.sellButton.on("pointerup", this.sellItem.bind(this));
+        this.sellButton.setScale(1.1);
         this.content.add(this.sellButton);
         
-        this.storeButton = new TextButton(this.scene, this.sellButton.x + this.sellButton.displayWidth + MARGIN, this.height - PADDING * 2, storeText, buttonFont, null, true).setOrigin(0, 1);
-        this.storeButton.onClick(()=>{
+        this.storeButton = new Phaser.GameObjects.Image(this.scene, 0, this.height - MARGIN * 2, Resources.Sprites.UI.Icons.MiniActionButtonsIcons, storeFrame)
+            .setOrigin(0, 1)
+            .setInteractive();
+        this.storeButton.on("pointerup", ()=>{
           if (this.item.isStored) {
                 this.getItem();
             } else {
                 this.storeItem();
             }   
         });
+        this.storeButton.setScale(1.1);
         this.content.add(this.storeButton);
 
-        let deleteButton = new TextButton(this.scene, this.storeButton.x + this.storeButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Delete, buttonFont, null, true).setOrigin(0, 1);
-        deleteButton.onClick(this.deleteItem.bind(this));
-        this.content.add(deleteButton);
-
-        let backButton = new TextButton(this.scene, deleteButton.x + deleteButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Back, buttonFont, null, true).setOrigin(0, 1);
-        this.content.add(backButton);
-        backButton.onClick(() => {
-            this.destroy();
-        });
+        this.deleteButton = new Phaser.GameObjects.Image(this.scene, 0, this.height - MARGIN * 2, Resources.Sprites.UI.Icons.MiniActionButtonsIcons, deleteFrame)
+            .setOrigin(0, 1)
+            .setInteractive();
+        this.deleteButton.on("pointerup", this.deleteItem.bind(this));
+        this.deleteButton.setScale(1.1);
+        this.content.add(this.deleteButton);
     }
 
     deleteItem() {
@@ -260,6 +275,23 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
         if (this.item.getAmount() <= 0) {
             this.cell.clear();
             this.destroy();
+        }
+    }
+
+    positionButtons() {
+        if(this.sellButton.alpha == 1) {
+            this.sellButton.setX(this.actionButton.x + this.actionButton.displayWidth + MARGIN);
+            this.deleteButton.setX(this.sellButton.x + this.sellButton.displayWidth + MARGIN);
+            return;
+        }else{
+            this.deleteButton.setX(this.actionButton.x + this.actionButton.displayWidth + MARGIN);
+        }
+
+        if(this.storeButton.alpha == 1) {
+            this.storeButton.setX(this.actionButton.x + this.actionButton.displayWidth + MARGIN);
+            this.deleteButton.setX(this.storeButton.x + this.storeButton.displayWidth + MARGIN);
+        }else{
+            this.deleteButton.setX(this.actionButton.x + this.actionButton.displayWidth + MARGIN);
         }
     }
 }

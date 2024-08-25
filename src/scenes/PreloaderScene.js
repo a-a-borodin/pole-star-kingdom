@@ -69,7 +69,8 @@ class PreloaderScene extends Phaser.Scene {
         this.load.spritesheet(Resources.Sprites.UI.Icons.SkullIcon,'assets/sprites/ui/icons/skullIcon.png',{frameWidth:26,frameHeight:27});
         this.load.spritesheet(Resources.Sprites.UI.Icons.StatisticIcons,"assets/sprites/ui/icons/statisticIcons.png",{frameWidth:32,frameHeight:32});
         this.load.spritesheet(Resources.Sprites.UI.Icons.EnemyIcons,"assets/sprites/ui/icons/enemyIcons.png",{frameWidth:86,frameHeight:86});
-        
+        this.load.spritesheet(Resources.Sprites.UI.Icons.MiniActionButtonsIcons,"assets/sprites/ui/icons/miniActionButtonsIcons.png",{frameWidth:32,frameHeight:32});
+
         this.load.spritesheet(Resources.Sprites.UI.Dialogs.PopUpTalkDialog,"assets/sprites/ui/dialogs/popupTalkDialog.png",{frameWidth:57,frameHeight:57});
         
         this.load.spritesheet(Resources.Sprites.UI.Buttons.ShopCoinButton,"assets/sprites/ui/buttons/shopCoinButton.png",{frameWidth:86,frameHeight:86});

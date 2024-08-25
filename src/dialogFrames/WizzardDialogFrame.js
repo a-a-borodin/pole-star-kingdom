@@ -12,7 +12,7 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         this.scene = scene;
         this.sceneHeight = scene.game.config.height;
         this.sceneWidth = scene.game.config.width;
-        this.width = this.sceneWidth / 1.9;
+        this.width = this.sceneWidth / 2.1;
         this.height = this.sceneHeight / 1.6;
         this.textManager = new TextManager(scene);
         this.margin = 15;
@@ -22,14 +22,18 @@ class WizzardDialogFrame extends Phaser.GameObjects.Container {
         this.waveID = this.waveManager.getWave().id;
         this.currentWave = Waves.get(this.waveID);
 
-        let wrapper = new Phaser.GameObjects.TileSprite(this.scene, this.sceneWidth / 2 - this.width / 2, 0, this.width, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
+        let UIZone = new Phaser.GameObjects.Zone(this.scene, 0, 0, this.sceneWidth, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
             .setOrigin(0)
-            .setAlpha(0.8)
             .setInteractive();
-
-        wrapper.on("pointerdown", () => {
+        UIZone.on("pointerdown", () => {
             this.destroy();
         });
+        this.add(UIZone);
+
+        let wrapper = new Phaser.GameObjects.TileSprite(this.scene, this.sceneWidth / 2 - this.width / 2, 0, this.width, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
+            .setOrigin(0)
+            .setInteractive()
+            .setAlpha(0.8);
         this.add(wrapper);
 
         let container = new Phaser.GameObjects.Container(this.scene, this.sceneWidth / 2 - this.width / 2, this.sceneHeight / 2 - this.height / 2)

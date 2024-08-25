@@ -17,7 +17,7 @@ const Rings = {
         saleCost:65,
         rarity:ItemsRarity.Rare,
         features:{
-            healthIncrease:5,
+            healthIncrease:2,
             damageIncrease:1,
         },
         icon:{

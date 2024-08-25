@@ -19,20 +19,27 @@ class ShopDialogFrame extends Phaser.GameObjects.Container {
         this.item = cell.getItem();
         this.sceneHeight = scene.game.config.height;
         this.sceneWidth = scene.game.config.width;
-        this.width = this.sceneWidth / 2;
-        this.height = this.sceneHeight / 2;
+        this.width = this.sceneWidth / 2.3;
+        this.height = this.sceneHeight / 2.2;
         this.textManager = new TextManager(scene);
         this.player = scene.scene.get(Scenes.MAIN).player;
 
-        let wrapper = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.sceneWidth, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack).setOrigin(0).setInteractive();
-        wrapper.setAlpha(0.8);
+        let wrapper = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.sceneWidth, this.sceneHeight, Resources.Sprites.UI.Panels.PanelBlack)
+            .setOrigin(0)
+            .setAlpha(0.6)
+            .setInteractive()
+            .on("pointerup", () => {
+                this.destroy();
+            })
         this.add(wrapper);
 
         let container = new Phaser.GameObjects.Container(this.scene, this.sceneWidth / 2 - this.width / 2, this.sceneHeight / 2 - this.height / 2);
         this.add(container);
 
-        let background = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.width, this.height, Resources.Sprites.UI.Panels.PanelBlack).setOrigin(0);
-        background.setAlpha(1);
+        let background = new Phaser.GameObjects.TileSprite(this.scene, 0, 0, this.width, this.height, Resources.Sprites.UI.Panels.PanelBlack)
+            .setOrigin(0)
+            .setInteractive()
+            .setAlpha(0.85);
         container.add(background);
 
         this.content = new Phaser.GameObjects.Container(this.scene, PADDING, PADDING);
@@ -72,21 +79,17 @@ class ShopDialogFrame extends Phaser.GameObjects.Container {
     }
     
     initButtons() {
-        let buttonFont = TextManager.Style.STROKE;
-
-        let buyButton = new TextButton(this.scene, 0, this.height - MARGIN * 2, Strings.Buy, buttonFont, null, true).setOrigin(0, 1);
-        buyButton.onClick(this.buy.bind(this));
+        let buyFrame = 159;
+        let buyButton = new Phaser.GameObjects.Image(this.scene, 0, this.height - MARGIN * 2, Resources.Sprites.UI.Icons.MiniActionButtonsIcons, buyFrame)
+            .setOrigin(0, 1)
+            .setInteractive();
+        buyButton.on("pointerup", this.buy.bind(this));
         if(this.player.getScore() < this.item.getCost()) {
             buyButton.setAlpha(0.7);
             buyButton.disableInteractive();
         }
+        buyButton.setScale(1.1);
         this.content.add(buyButton);
-        
-        let backButton = new TextButton(this.scene, buyButton.x + buyButton.displayWidth + MARGIN, this.height - PADDING * 2, Strings.Back, buttonFont, null, true).setOrigin(0, 1);
-        this.content.add(backButton);
-        backButton.onClick(() => {
-            this.destroy();
-        });
     }
 
     checkAmount() {
