@@ -51,7 +51,7 @@ class Player extends Entity {
     }
 
     setMerchantReputation(reputation) {
-        this.stats.merchantReputation = reputation;
+        this.stats.merchantReputation = Math.round(reputation * 10) / 10;
     }
 
     getMerchantReputation() {

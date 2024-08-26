@@ -19,7 +19,7 @@ import Misc from '/src/utils/Misc.js';
 class ShopWindow extends Phaser.GameObjects.Container {
     cells = [];
     equipment = [Weapons,Chestplates,Amulets,Potions,Boots,Cloaks,Helmets,Gloves,Rings];
-    REFRESH_TIME = 1000 * 10;
+    REFRESH_TIME = 1000 * 3;
     currentTime;
     
     constructor(context,x,y,width,height) {
@@ -35,23 +35,38 @@ class ShopWindow extends Phaser.GameObjects.Container {
         this.add(coinsIcon);
         this.add(this.coinsText);
         
-        this.refreshText = context.textManager.createText(0, this.coinsText.y).setOrigin(1, 0.5);
-        this.add(this.refreshText);
-        
         this.cellsLayer = context.add.container(0,this.coinsText.y + this.coinsText.displayHeight + this.margin);
-        this.cellsLayer.setSize(this.width / 1.3 - this.margin, this.height / 1.3 - this.margin);
+        this.cellsLayer.setSize(this.width / 1.8 - this.margin, this.height / 1.8 - this.margin);
         this.add(this.cellsLayer);
-        this.refreshText.x = this.cellsLayer.x + this.cellsLayer.width;
-    
+
+        let goblinIcon = context.add.image(0,this.coinsText.y + this.coinsText.displayHeight + this.margin, Resources.Sprites.UI.Icons.GoblinIcon)
+            .setOrigin(0)
+            .setScale(1.1);
+        this.add(goblinIcon);
+        goblinIcon.setX(this.width - goblinIcon.displayWidth - this.margin * 2);
+
+        let reputationIcon = this.context.add.image(goblinIcon.x, goblinIcon.y + goblinIcon.displayHeight + this.margin, Resources.Sprites.UI.Icons.MiniActionButtonsIcons, 397)
+            .setOrigin(0, 0);
+        this.add(reputationIcon);
+        this.reputationText = context.textManager.createText(reputationIcon.x + reputationIcon.displayWidth + this.margin / 2, reputationIcon.y + reputationIcon.displayHeight / 2)
+            .setOrigin(0, 0.5);
+        this.add(this.reputationText);
+
+        let refreshIcon = this.context.add.image(goblinIcon.x, reputationIcon.y + reputationIcon.displayHeight + this.margin / 2, Resources.Sprites.UI.Icons.MiniActionButtonsIcons, 167)
+            .setOrigin(0, 0);
+        this.add(refreshIcon);
+        this.refreshText = context.textManager.createText(refreshIcon.x + refreshIcon.displayWidth + this.margin / 2, refreshIcon.y + refreshIcon.displayHeight / 2)
+            .setOrigin(0, 0.5);
+        this.add(this.refreshText);
+
         this.refreshTimer = this.scene.time.addEvent({
             delay: 1000,
             callback: () => {
+                this.currentTime -= 1000;
                 if(this.currentTime <= 0){
                     this.currentTime = this.REFRESH_TIME;
                     this.updateGoods();
-                }else{
-                    this.currentTime -= 1000;
-                }
+                }e
             },
             callbackScope: context,
             repeat: true,
@@ -68,7 +83,7 @@ class ShopWindow extends Phaser.GameObjects.Container {
                 return new ShopDialogFrame(this.context, cell);
         };
 
-        let hrow = 4;
+        let hrow = 3;
         let vrow = 3;
         let margin = this.margin;
         let cellWidth = (this.cellsLayer.width / hrow) - margin;
@@ -96,6 +111,8 @@ class ShopWindow extends Phaser.GameObjects.Container {
     generateGoods() {
         let rep = this.context.player.getMerchantReputation();
         let availableCells = Math.trunc(rep);
+        if(availableCells > this.cells.length)
+            availableCells = this.cells.length;
 
         for(let ind = 0; ind < availableCells; ind++) {
             if(ind > this.cells.length) 
@@ -122,6 +139,7 @@ class ShopWindow extends Phaser.GameObjects.Container {
         }
         this.coinsText.setText(this.context.player.getScore());
         this.refreshText.setText(Misc.fancyTimeFormat(this.currentTime/1000));
+        this.reputationText.setText(this.context.player.getMerchantReputation());
     }
 }
 

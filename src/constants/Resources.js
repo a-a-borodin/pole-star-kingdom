@@ -62,7 +62,8 @@ const Resources = {
                 SkullIcon: "skullIcon",
                 StatisticIcons: "statisticIcons",
                 EnemyIcons: "enemyIcons",
-                MiniActionButtonsIcons: "miniActionButtons"
+                MiniActionButtonsIcons: "miniActionButtons",
+                GoblinIcon: "goblinIcon",
             },
 
             Buttons: {

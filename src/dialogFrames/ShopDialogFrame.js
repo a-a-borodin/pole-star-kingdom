@@ -107,6 +107,7 @@ class ShopDialogFrame extends Phaser.GameObjects.Container {
             this.cell.clear();
             this.player.getInventory().push(this.item);
             this.player.setScore(this.player.getScore() - this.item.getCost());
+            this.player.setMerchantReputation(this.player.getMerchantReputation() + 0.1);
             this.destroy();
         }
     }

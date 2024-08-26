@@ -120,7 +120,7 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
             storeFrame = 81;
         }
         let sellFrame = 91;
-        let deleteFrame = 176;
+        let deleteFrame = 224;
 
         this.actionButton = new Phaser.GameObjects.Image(this.scene, 0, this.height - MARGIN * 2, Resources.Sprites.UI.Icons.MiniActionButtonsIcons, actionFrame)
             .setOrigin(0, 1)
