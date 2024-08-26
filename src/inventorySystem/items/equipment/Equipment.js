@@ -20,47 +20,47 @@ class Equipment extends Item {
         if(item.features.speedIncrease != undefined){
             let speed = item.features.speedIncrease;
             
-            if(speed <= 30)
+            if(speed <= 30) {
                 this.getDescription().push(Strings.Slightly + Strings.Increases + Strings.MovementSpeed);
-            if(speed <= 50)
+            }else if(speed <= 50) {
                 this.getDescription().push(Strings.Increases + Strings.MovementSpeed);
-            if(speed <= 70)
+            }else if(speed <= 70) {
                 this.getDescription().push(Strings.Greatly + Strings.Increases + Strings.MovementSpeed);
-            if(speed > 70)
+            }else if(speed > 70) {
                 this.getDescription().push(Strings.Incredible + Strings.MovementSpeed);
-      
+            }
             this.setSpeedIncrease(speed);
         }
         if(item.features.healthRegenIncrease != undefined){
             let regen = item.features.healthRegenIncrease;
             
-            if(regen <= 1)
+            if(regen <= 1) {
                 this.getDescription().push(Strings.Slightly + Strings.Increases + Strings.HealthRegen);
-            if(regen <= 3)
+            } else if(regen <= 3) {
                 this.getDescription().push(Strings.Increases + Strings.HealthRegen);
-            if(regen <= 5)
+            } else if(regen <= 5) {
                 this.getDescription().push(Strings.Greatly + Strings.Increases + Strings.HealthRegen);
-            if(regen > 5)
+            } else if(regen > 5) {
                 this.getDescription().push(Strings.Incredible + Strings.HealthRegen);
-      
+            }
             this.setHealthRegenIncrease(item.features.healthRegenIncrease);
         }
         if(item.features.attackSpeed != undefined){
             let speed = item.features.attackSpeed;
             
-            if(speed >= 3000)
+            if(speed >= 3000) {
                 this.getDescription().push(Strings.VerySlow + Strings.Speed);
-            if(speed >=  2000)
+            }else if(speed >=  2000) {
                 this.getDescription().push(Strings.Slow + Strings.Speed);
-            if(speed >= 1500)
+            }else if(speed >= 1500) {
                 this.getDescription().push(Strings.Average + Strings.Speed);
-            if(speed >= 1000)
+            } else if(speed >= 1000) {
                 this.getDescription().push(Strings.Fast + Strings.Speed);
-            if(speed >= 700)
+            } else if(speed >= 700) {
                 this.getDescription().push(Strings.VeryFast + Strings.Speed);
-            if(speed <= 400)
+            } else if(speed <= 400) {
                 this.getDescription().push(Strings.Incredible + Strings.AttackSpeed);
-            
+            }
             this.setAttackSpeed(item.features.attackSpeed);
         }
         

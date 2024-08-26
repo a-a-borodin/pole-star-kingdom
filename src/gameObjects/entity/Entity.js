@@ -26,6 +26,7 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
                 this.play(anims.idle.key, true);
         }
 
+        this.initHitArea();
         this.setHealthBar(new ProgressBar(scene, x, y, 60, 6, {
             background: scene.add.sprite(0, 0, Resources.Sprites.UI.ProgressBars.GreenSimple, 0),
             progressBar: scene.add.sprite(30, 0, Resources.Sprites.UI.ProgressBars.GreenSimple, 1).setOrigin(1, 0.5),
@@ -33,13 +34,15 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
             progress: this.getHealth(),
         }).setAlpha(0));
 
-        this.healthBarFollowTimer = this.scene.time.addEvent({
-            delay: 10,
-            callback: () => {
-                this.getHealthBar().setPosition(this.x, this.y - this.displayHeight / 2);
-            },
-            callbackScope: this,
-            loop: true,
+        this.scene.events.on("postupdate", () => {
+            Phaser.Display.Align.To.TopCenter(this.getHealthBar(), this);
+            if (this.getEnemy() != undefined) {
+                if(this.x >= this.getEnemy().x) {
+                    Phaser.Display.Align.To.LeftCenter(this.getHitArea(), this);
+                }else{
+                    Phaser.Display.Align.To.RightCenter(this.getHitArea(), this);
+                }
+            }
         });
 
         this.healthRegenTimer = this.scene.time.addEvent({
@@ -74,6 +77,19 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
                 repeat: anim.repeat,
             });
         }
+    }
+
+    initHitArea() {
+        this.hitArea = this.scene.physics.add.image(0, 0)
+            .setOrigin(0, 0.5);
+        this.hitArea.body.allowGravity = false;
+        this.hitArea.setImmovable(true);
+        this.scene.add.existing(this.getHitArea());
+        this.scene.physics.add.existing(this.getHitArea());
+    }
+
+    getHitArea() {
+        return this.hitArea;
     }
 
     getHealthBar() {
@@ -265,7 +281,7 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
 
     setEnemy(enemy) {
         this.enemy = enemy;
-        this.scene.physics.add.overlap(this.enemy, this, () => {
+        this.scene.physics.add.overlap(this.enemy, this.getHitArea(), () => {
             this.attack(enemy);
         });
     }
@@ -326,8 +342,10 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
 
             if (this.x >= object.x) {
                 this.flipX = true;
+               // this.hitArea.posX = this.x - this.displayWidth;
             } else {
                 this.flipX = false;
+               // this.hitArea.posX = this.x + this.displayWidth / 2;
             }
         }
 
@@ -378,8 +396,6 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
         object.setHealth(object.getHealth() - damage);
         if (object.getHealth() <= 0)
             object.kill();
-
-        // this.createStatsText(object,damage,Misc.Colors.RED);
         this.knockObject(object);
 
         this.attackTimer = this.scene.time.addEvent({
@@ -456,6 +472,7 @@ class Entity extends Phaser.Physics.Arcade.Sprite {
         }).on("complete", () => {
             if (this.onDestroyFunc != undefined)
                 this.onDestroyFunc();
+            this.getHitArea().destroy();
             this.destroy();
         });
     }

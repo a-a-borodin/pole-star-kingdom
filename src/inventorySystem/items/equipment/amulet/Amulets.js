@@ -18,6 +18,7 @@ const Amulets = {
         rarity:ItemsRarity.Rare,
         features:{
             healthIncrease:1,
+            healthRegenIncrease: 0.3,
         },
         icon:{
             texture:Resources.Sprites.Items.Icons.AmuletIcons,

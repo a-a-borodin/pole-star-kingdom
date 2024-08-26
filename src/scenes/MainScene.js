@@ -126,7 +126,7 @@ class MainScene extends Phaser.Scene{
             attackSpeed: 1000,
             knockback: 300,
             healthRegen: 0.5,
-            merchantReputation: 1,
+            merchantReputation: 10,
         });
         this.player.depth = 100;
         

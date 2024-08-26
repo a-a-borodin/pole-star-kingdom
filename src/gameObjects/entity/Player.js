@@ -25,7 +25,6 @@ class Player extends Entity {
         //TODO
         this.onDestroy(() => {
             scene.registry.destroy();
-            scene.EventManager.Events.off();
             scene.scene.restart();
             scene.scene.stop(Scenes.UI);
             scene.scene.run(Scenes.UI);
