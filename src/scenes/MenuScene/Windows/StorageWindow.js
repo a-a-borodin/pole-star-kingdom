@@ -37,45 +37,50 @@ class StorageWindow extends Phaser.GameObjects.Container {
                 return new InventoryDialogFrame(this.context, cell);
         };
 
-        let hrow = 3;
-        let vrow = 3;
+        let bagHRow = 3;
+        let bagVRrow = 3;
         let margin = this.margin;
-        let cellWidth = (this.cellsLayer.width / hrow) - margin;
-        let cellHeight = cellWidth;
+        let bagCellWidth = (this.cellsLayer.width / bagHRow) - margin;
+        let bagCellHeight = bagCellWidth;
         let padding = 20;
         let y = 0;
         let x = 0;
 
-        for (let v = 0; v < vrow; v++) {
-            for (let h = 0; h < hrow; h++) {
-                let cell = new CellContainer(this.context, x, y, cellWidth, cellHeight, padding, true, null);
+        for (let v = 0; v < bagVRrow; v++) {
+            for (let h = 0; h < bagHRow; h++) {
+                let cell = new CellContainer(this.context, x, y, bagCellWidth, bagCellHeight, padding, true, null);
                 cell.onClick(() => {
                     cellClickFn(cell.getCell());
                 });
 
                 this.cellsLayer.add(cell);
                 this.cells.push(cell);
-                x += cellWidth + margin;
+                x += bagCellWidth + margin;
             }
-            y += cellWidth + margin;
+            y += bagCellHeight + margin;
             x = 0;
         }
 
         x = 0;
         y = 0;
 
-        for (let v = 0; v < vrow; v++) {
-            for (let h = 0; h < hrow; h++) {
-                let cell = new CellContainer(this.context, x, y, cellWidth, cellHeight, padding, true, null);
+        let storageVRow = 4;
+        let storageHRow = 4;
+        let storageCellWidth = (this.cellsLayer.width / storageHRow) - margin;
+        let storageCellHeight = storageCellWidth;
+
+        for (let v = 0; v < storageVRow; v++) {
+            for (let h = 0; h < storageHRow; h++) {
+                let cell = new CellContainer(this.context, x, y, storageCellWidth, storageCellHeight, padding, true, null);
                 cell.onClick(() => {
                     cellClickFn(cell.getCell());
                 });
 
                 this.storageLayer.add(cell);
                 this.storageCells.push(cell);
-                x += cellWidth + margin;
+                x += storageCellWidth + margin;
             }
-            y += cellWidth + margin;
+            y += storageCellHeight + margin;
             x = 0;
         }
     }

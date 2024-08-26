@@ -164,7 +164,7 @@ class MenuScene extends Phaser.Scene {
         this.upgradesButton.setDisplaySize(this.inventoryButtonsLayer.height, this.inventoryButtonsLayer.height);
         this.inventoryButtonsLayer.add(this.upgradesButton);
         this.upgradesButton.disableInteractive();
-        this.upgradesButton.setAlpha(0.4);
+        this.upgradesButton.setAlpha(0);
     }
 
     initEvents() {
@@ -194,7 +194,7 @@ class MenuScene extends Phaser.Scene {
         });
         EventManager.on(EventManager.Events.HOME_COLLIDE_FINISH, () => {
             this.upgradesButton.disableInteractive();
-            this.upgradesButton.setAlpha(0.4);
+            this.upgradesButton.setAlpha(0);
             
             this.storageButton.disableInteractive();
             this.storageButton.setAlpha(0.4);

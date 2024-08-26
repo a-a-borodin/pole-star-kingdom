@@ -90,7 +90,6 @@ class Inventory{
     
     hasSlotFor(item){
         let cells = this.getCells();
-       // console.log(1 > 1 && 2 > 3);
         for(let key in cells){
             let cell = cells[key];
             if(cell.getItem() == undefined)

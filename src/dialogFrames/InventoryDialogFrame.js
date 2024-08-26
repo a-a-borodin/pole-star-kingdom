@@ -6,6 +6,7 @@ import Scenes from '/src/constants/Scenes.js';
 import EventManager from '/src/utils/EventManager.js';
 import ItemTypes from '/src/inventorySystem/items/ItemTypes.js';
 import ItemsRarity from '/src/inventorySystem/items/ItemsRarity.js';
+import Item from '/src/inventorySystem/items/Item.js';
 
 const PADDING = 15;
 const MARGIN = 15;
@@ -178,20 +179,35 @@ class InventoryDialogFrame extends Phaser.GameObjects.Container {
 
     storeItem() {
         if (this.player.getStorage().hasSlotFor(this.item)) {
-            this.item.isStored = true;
-            this.item.isEquiped = false;
-            this.cell.clear();
-            this.player.getStorage().push(this.item);
-            this.destroy();
+            if(this.item.getAmount() > 1){
+                let item = new Item(this.item);
+                item.isStored = true;
+                item.isEquiped = false;
+                this.item.setAmount(this.item.getAmount() - 1);
+                this.player.getStorage().push(item);
+            }else{
+                this.item.isStored = true;
+                this.item.isEquiped = false;
+                this.cell.clear();
+                this.player.getStorage().push(this.item);
+                this.destroy();
+            }
         }
     }
 
     getItem() {
         if (this.player.getInventory().hasSlotFor(this.item)) {
-            this.item.isStored = false;
-            this.cell.clear();
-            this.player.getInventory().push(this.item);
-            this.destroy();
+            if(this.item.getAmount() > 1){
+                let item = new Item(this.item);
+                item.isStored = false;
+                this.item.setAmount(this.item.getAmount() - 1);
+                this.player.getInventory().push(item);
+            }else{
+                this.item.isStored = false;
+                this.cell.clear();
+                this.player.getInventory().push(this.item);
+                this.destroy();
+            }
         }
     }
 

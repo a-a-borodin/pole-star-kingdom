@@ -80,7 +80,8 @@ class ShopWindow extends Phaser.GameObjects.Container {
     initCells() {
         let cellClickFn = (cell) => {
             if (cell != undefined)
-                return new ShopDialogFrame(this.context, cell);
+                this.dialogFrame = new ShopDialogFrame(this.context, cell);
+                return this.dialogFrame;
         };
 
         let hrow = 3;
@@ -130,6 +131,8 @@ class ShopWindow extends Phaser.GameObjects.Container {
     }
     
     updateGoods() {
+        if (this.dialogFrame != undefined)
+            this.dialogFrame.destroy();
         this.generateGoods();
     }
     

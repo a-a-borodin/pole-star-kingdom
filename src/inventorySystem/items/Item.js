@@ -12,16 +12,16 @@ class Item {
         this.setCell(cell);
         this.setEquipable(item.isEquipable);
         this.setEquiped(item.isEquiped);
-        this.setStoraged(item.isStoraged);
+        this.setStored(item.isStored);
         this.setDescription(item.description);
     }
     
-    setStoraged(val) {
-        this.isStoraged = val;
+    setStored(val) {
+        this.isStored = val;
     }
 
-    isStoraged() {
-        return this.isStoraged;
+    isStored() {
+        return this.isStored;
     }
 
     isEquipable(){
