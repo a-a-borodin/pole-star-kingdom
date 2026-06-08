@@ -2,6 +2,10 @@
 
 A 2D side-scrolling wave-based RPG prototype built with the **Phaser 3** game engine. The current version implements a basic gameplay loop: fighting waves of enemies, collecting loot, purchasing equipment from a merchant, and interacting with NPCs.
 
+[🎮 Play Live Demo](https://borodinbaa.github.io/pole-star-kingdom/main.html)
+
+![Gameplay Preview](assets/media/gameplay.gif)
+
 ---
 
 ## Key Features
