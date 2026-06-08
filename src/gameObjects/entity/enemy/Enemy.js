@@ -1,4 +1,4 @@
-import Entity from '/src/gameObjects/Entity/Entity.js';
+import Entity from '/src/gameObjects/entity/Entity.js';
 import Chest from '/src/gameObjects/Chest.js';
 import Anims from '/src/constants/Anims.js';
 import ItemsFactory from '/src/inventorySystem/items/ItemsFactory.js';

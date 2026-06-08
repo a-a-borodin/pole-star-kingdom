@@ -1,5 +1,5 @@
 import EventManager from '/src/utils/EventManager.js';
-import Entity from '/src/gameObjects/Entity/Entity.js';
+import Entity from '/src/gameObjects/entity/Entity.js';
 import Anims from '/src/constants/Anims.js';
 import Resources from '/src/constants/Resources.js';
 import Equipment from "/src/inventorySystem/equipment/Equipment.js";

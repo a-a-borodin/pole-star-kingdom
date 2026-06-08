@@ -1,4 +1,4 @@
-import Item from "/src/inventorySystem/Items/Item.js";
+import Item from "/src/inventorySystem/items/Item.js";
 import Strings from '/src/constants/Strings.js';
 
 class Potion extends Item {
