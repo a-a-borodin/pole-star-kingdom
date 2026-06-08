@@ -59,7 +59,7 @@ class PreloaderScene extends Phaser.Scene {
 	    this.load.spritesheet(Resources.Sprites.Entities.Enemies.AlienBlue,'assets/sprites/entities/enemies/alienBlue.png',{frameWidth:128,frameHeight:128});
 	    this.load.spritesheet(Resources.Sprites.Entities.Enemies.WolfWhite,'assets/sprites/entities/enemies/wolfWhite.png',{frameWidth:96,frameHeight:64});
 	    this.load.spritesheet(Resources.Sprites.Entities.Enemies.SlimeGreen,'assets/sprites/entities/enemies/slimeGreen.png',{frameWidth:96,frameHeight:48});
-	    this.load.spritesheet(Resources.Sprites.Entities.Npcs.Wizzard,'assets/sprites/entities/npcs/Wizzard.png',{frameWidth:86,frameHeight:130});
+	    this.load.spritesheet(Resources.Sprites.Entities.Npcs.Wizzard,'assets/sprites/entities/npcs/wizzard.png',{frameWidth:86,frameHeight:130});
 	  
 	    this.load.image(Resources.Sprites.UI.Joystick.Thumb,'assets/sprites/ui/joystick/thumb.png');
 	    this.load.image(Resources.Sprites.UI.Joystick.Base,'assets/sprites/ui/joystick/base.png');
