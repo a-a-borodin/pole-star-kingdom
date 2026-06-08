@@ -31,12 +31,12 @@ class PreloaderScene extends Phaser.Scene {
             progressBar.destroy();
             backgroundColor.destroy();
         });
-        
-        this.load.plugin('rexoutlinepipelineplugin', '/src/utils/rexoutlinepipelineplugin.min.js', true);
+
+        this.load.plugin('rexoutlinepipelineplugin', 'src/utils/rexoutlinepipelineplugin.min.js', true);
         
         this.load.tilemapTiledJSON(Resources.Json.Maps.MainGroundMap, 'assets/json/maps/mainGroundMap.json');
-        
-	    this.load.spritesheet(Resources.Sprites.Backgrounds.Menu.Parallax.GrassMountain, 'assets/sprites/backgrounds/menu/parallax/BackgroundGrassMountainParallax.png',{frameWidth:960,frameHeight:540});
+
+	    this.load.spritesheet(Resources.Sprites.Backgrounds.Menu.Parallax.GrassMountain, 'assets/sprites/backgrounds/menu/parallax/backgroundGrassMountainParallax.png',{frameWidth:960,frameHeight:540});
         this.load.spritesheet(Resources.Sprites.Backgrounds.Menu.Parallax.SnowMountain,'assets/sprites/backgrounds/menu/parallax/backgroundSnowMountainParallax.png',{frameWidth:960,frameHeight:540});
 	    this.load.spritesheet(Resources.Sprites.Backgrounds.Game.Parallax.OakWoods,'assets/sprites/backgrounds/game/parallax/backgroundOakWoodsParallax.png',{frameWidth:960,frameHeight:540});
 	    
@@ -64,7 +64,7 @@ class PreloaderScene extends Phaser.Scene {
 	    this.load.image(Resources.Sprites.UI.Joystick.Thumb,'assets/sprites/ui/joystick/thumb.png');
 	    this.load.image(Resources.Sprites.UI.Joystick.Base,'assets/sprites/ui/joystick/base.png');
 	   
-	    this.load.image(Resources.Sprites.UI.Logo,"/assets/sprites/ui/logo.png");
+	    this.load.image(Resources.Sprites.UI.Logo,"assets/sprites/ui/logo.png");
        
         this.load.spritesheet(Resources.Sprites.UI.Icons.SkullIcon,'assets/sprites/ui/icons/skullIcon.png',{frameWidth:26,frameHeight:27});
         this.load.spritesheet(Resources.Sprites.UI.Icons.StatisticIcons,"assets/sprites/ui/icons/statisticIcons.png",{frameWidth:32,frameHeight:32});
