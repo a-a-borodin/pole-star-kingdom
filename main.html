@@ -8,14 +8,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+        {
+            "imports": {
+                "/src/": "./src/"
+            }
+        }
+    </script>
 </head>
 
 <body>
     <div style="font-family:PixelFont; position:absolute; left:-1000px; visibility:hidden;">.</div>
 
     <script src="src/phaser/phaser.min.js"></script>
-
-    <script type="module" src="src/core.js"></script>
+    
+    <script type="module" src="./src/core.js"></script>
     <script>
         javascript: (function () {
             var script = document.createElement('script');
